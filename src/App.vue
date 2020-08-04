@@ -1,32 +1,42 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
+    <Head />
     <router-view />
   </div>
 </template>
 
-<style lang="less">
+<script>
+import Head from "@/components/Head";
+export default {
+  components: {
+    Head
+  }
+};
+</script>
+
+<style lang="less" scoped>
+* {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
+  width: 100%;
+  min-height: 600px;
+  background-image: url("./assets/img/boyyang.jpg");
+  background-size: cover;
+  display: flex;
 }
 
-#nav {
-  padding: 30px;
-
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
-    }
+@media screen and(max-width: 600px) {
+  #app {
+    width: 100%;
+    min-height: 670px;
+    background-image: url("./assets/img/boyyang.jpg");
+    background-position-x: center;
+    background-size: cover;
+    display: flex;
+    flex-direction: column;
   }
 }
 </style>
