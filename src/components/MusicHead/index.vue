@@ -57,7 +57,6 @@ export default {
         let res = await getMusic(state);
         state.mvList = res.data.data;
         store.state.MvList = state.mvList;
-        console.log(store.state.MvList);
       }
       if (state.flog == "推荐单曲") {
         state.url = "https://autumnfish.cn/personalized/newsong";

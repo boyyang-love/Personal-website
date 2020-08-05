@@ -1,12 +1,18 @@
 <template>
   <div class="contact">
-    <div class="content animated rotateInDownLeft"></div>
+    <div class="content animated rotateInDownLeft">
+      <ContactDetail />
+    </div>
   </div>
 </template>
 
 <script>
+import ContactDetail from "@/components/ContactDetail";
 export default {
-  name: "Contact"
+  name: "Contact",
+  components: {
+    ContactDetail
+  }
 };
 </script>
 
@@ -24,6 +30,8 @@ export default {
     border: 1px solid white;
     border-radius: 10px;
     box-shadow: 0 2px 3px 0px rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
   }
 }
 

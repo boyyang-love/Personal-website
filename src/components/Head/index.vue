@@ -2,10 +2,18 @@
   <div class="head">
     <div class="content">
       <ul>
-        <li @click="routeJumb('/')" :class="{active: name=='/'}">Home</li>
-        <li @click="routeJumb('music')" :class="{active: name=='music'}">Music</li>
-        <li @click="routeJumb('about')" :class="{active: name=='about'}">About</li>
-        <li @click="routeJumb('contact')" :class="{active: name=='contact'}">contact</li>
+        <li @click="routeJumb('/')" :class="{active: name=='/'}">
+          <i class="iconfont icon-fangzilengjiao"></i>
+        </li>
+        <li @click="routeJumb('music')" :class="{active: name=='music'}">
+          <i class="iconfont icon-mmp"></i>
+        </li>
+        <li @click="routeJumb('about')" :class="{active: name=='about'}">
+          <i class="iconfont icon-bangzhuguanyuwomen"></i>
+        </li>
+        <li @click="routeJumb('contact')" :class="{active: name=='contact'}">
+          <i class="iconfont icon-planetspacefl"></i>
+        </li>
       </ul>
     </div>
   </div>
@@ -53,8 +61,8 @@ export default {
   .content {
     width: 100%;
     height: 550px;
-    box-shadow: 5px 4px 7px 5px rgba(0, 0, 0, 0.4);
-    background: rgba(77, 97, 153, 0.4);
+    // box-shadow: 5px 4px 7px 5px rgba(0, 0, 0, 0.4);
+    // background: rgba(77, 97, 153, 0.4);
     border-radius: 15px;
     margin-left: 20px;
     cursor: pointer;
@@ -69,7 +77,7 @@ export default {
       justify-content: center;
       align-items: center;
       li {
-        width: 100%;
+        width: 75%;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -79,9 +87,14 @@ export default {
         font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
         cursor: pointer;
         margin: 5px 0px;
+        i {
+          font-size: 40px;
+          margin: 10px;
+          color: violet;
+        }
       }
       li:hover {
-        background: rgba(93, 98, 167, 0.6);
+        background-color: #c32136;
         color: black;
         box-shadow: 2px 3px 3px 0px rgba(121, 134, 141, 0.4);
         border-radius: 15px;
@@ -90,9 +103,9 @@ export default {
       }
     }
   }
-  .content:hover {
-    background: rgba(83, 77, 167, 0.6);
-  }
+  // .content:hover {
+  //   background: rgba(83, 77, 167, 0.6);
+  // }
 }
 
 @media screen and(max-width: 600px) {

@@ -1,12 +1,18 @@
 <template>
   <div class="about">
-    <div class="content animated slideInLeft"></div>
+    <div class="content animated slideInLeft">
+      <AboutDetail />
+    </div>
   </div>
 </template>
 
 <script>
+import AboutDetail from "@/components/AboutDetail";
 export default {
-  name: "About"
+  name: "About",
+  components: {
+    AboutDetail
+  }
 };
 </script>
 
@@ -24,6 +30,9 @@ export default {
     border: 1px solid white;
     border-radius: 10px;
     box-shadow: 0 2px 3px 0px rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 }
 
