@@ -10,7 +10,7 @@
       <h5>hello, I'M boyyang</h5>
     </div>
     <div class="btn">
-      <div class="myShows">我的作品</div>
+      <div class="myShows" @click="$router.push('/myshows')">我的作品</div>
       <div class="myBlog">
         <a href="https://www.cnblogs.com/boyyangD/" target="_blank" rel="noopener noreferrer">我的博客</a>
       </div>
@@ -120,16 +120,27 @@ export default {
 @media screen and(max-width: 600px) {
   .home {
     width: 100%;
-    height: 550px;
-    margin-top: 35px;
+    height: 500px;
+    margin-top: 0px;
     display: flex;
     justify-content: center;
     align-items: center;
     .content {
-      width: 90%;
-      height: 500px;
+      display: none;
+    }
+    .title {
+      display: none;
+    }
+    .btn {
       display: flex;
+      justify-content: center;
+      align-items: center;
       flex-direction: column;
+      width: 100%;
+      position: absolute;
+      z-index: 10;
+      bottom: 0;
+      right: 0;
     }
   }
 }

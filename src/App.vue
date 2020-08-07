@@ -26,6 +26,8 @@ export default {
   background-image: url("./assets/img/boyyang.jpg");
   background-size: cover;
   display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 @media screen and(max-width: 600px) {
@@ -37,6 +39,8 @@ export default {
     background-size: cover;
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
   }
 }
 </style>
