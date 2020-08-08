@@ -22,14 +22,14 @@
       </div>
       <div class="submit" @click="submit" v-show="isLogin">提交</div>
       <div class="comment" v-for="(item, i) in commentDetail" :key="i">
-        <div class="userIcon">{{item.icontext}}</div>
+        <div class="userIcon">{{(item.nickname).slice(0,1)}}</div>
         <div class="commentMes">
           <div class="commentUser">
             {{item.nickname}}
-            <span class="time">2小时前</span>
+            <span class="time">{{item.commentTime}}</span>
           </div>
-          <div class="commentText">{{item.comment}}</div>
-          <div class="reback">回复</div>
+          <div class="commentText">{{item.commentText}}</div>
+          <div class="reback" v-show="item.email == email " @click="delComment(item._id)">删除</div>
         </div>
       </div>
     </div>
@@ -91,7 +91,8 @@
 </template>
 
 <script>
-import { reactive, toRefs } from "vue";
+import axios from "axios";
+import { reactive, toRefs, onMounted } from "vue";
 export default {
   name: "ContactDetail",
   setup() {
@@ -102,18 +103,7 @@ export default {
       isLoginBox: false,
       nickname: "",
       email: "",
-      commentDetail: [
-        {
-          nickname: "boyyang",
-          icontext: "B",
-          comment: "嗨，你好压"
-        },
-        {
-          nickname: "boyyang",
-          icontext: "B",
-          comment: "嗨，你好压"
-        }
-      ]
+      commentDetail: []
     });
     // 昵称验证
     var Reg_nickname = /^.{2,8}$/;
@@ -122,15 +112,22 @@ export default {
     // 评论提交
     const submit = () => {
       if (state.commentText !== "") {
-        state.commentDetail.unshift({
-          nickname: state.nickname,
-          icontext: state.nickname.slice(1, 0),
-          comment: state.commentText
+        axios({
+          url: "/api/comment",
+          method: "post",
+          data: {
+            email: state.email,
+            comment: state.commentText
+          }
+        }).then(() => {
+          getComment();
+          state.commentText = "";
         });
       } else {
         alert("评论不能为空");
       }
     };
+    // 点击登录事件
     const login = () => {
       state.isLoginBox = true;
     };
@@ -138,22 +135,75 @@ export default {
     const outlogin = () => {
       state.beforeLogin = "先登录哦！！";
       state.isLogin = false;
+      localStorage.removeItem("users");
     };
     // 登录事件
     const logined = () => {
       if (state.nickname !== "" && state.email !== "") {
         // 昵称以及邮箱验证
         if (Reg_nickname.test(state.nickname) && Reg_email.test(state.email)) {
-          console.log(state.nickname, state.email);
-          state.beforeLogin = `谢谢你的留言${state.nickname}~~~~ `;
+          state.beforeLogin = `谢谢你的留言:${state.nickname}~~~~ `;
           state.isLoginBox = false;
           state.isLogin = true;
+          // 将数据传进数据库
+          axios({
+            url: "/api/sinup",
+            method: "post",
+            data: {
+              nickname: state.nickname,
+              email: state.email
+            }
+          }).then(() => {
+            let users = {
+              nickname: state.nickname,
+              email: state.email
+            };
+            localStorage.setItem("users", JSON.stringify(users));
+          });
         } else {
           alert("请正确填写昵称以及邮箱");
         }
       } else {
         alert("输入不能为空");
       }
+    };
+
+    // 删除评论事件
+    const delComment = id => {
+      axios({
+        url: "/api/delComment",
+        method: "post",
+        data: {
+          _id: id
+        }
+      }).then(() => {
+        getComment();
+      });
+    };
+
+    // 本地储存登录信息
+    onMounted(async () => {
+      let users = await localStorage.getItem("users");
+      if (users) {
+        state.nickname = JSON.parse(users).nickname;
+        state.email = JSON.parse(users).email;
+        state.isLogin = true;
+        state.beforeLogin = `谢谢你的留言${state.nickname}~~~~ `;
+      }
+      getComment();
+    });
+
+    // 获取评论数据
+    const getComment = () => {
+      axios({
+        url: "/api/allComment",
+        method: "get"
+      }).then(res => {
+        if (res.status == 200) {
+          state.commentDetail = res.data;
+          state.commentDetail.reverse();
+        }
+      });
     };
 
     return {
@@ -163,7 +213,8 @@ export default {
       logined,
       outlogin,
       Reg_nickname,
-      Reg_email
+      Reg_email,
+      delComment
     };
   }
 };
@@ -301,10 +352,12 @@ export default {
           font-size: 16px;
         }
         .reback {
+          width: 45px;
           font-size: 13px;
           color: #4c8dae;
           margin: 15px;
           cursor: pointer;
+          @center();
         }
         .reback:hover {
           color: red;
