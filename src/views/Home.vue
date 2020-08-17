@@ -7,10 +7,19 @@
       <p>独钓寒江雪</p>
     </div>
     <div class="title">
-      <h5>hello, I'M boyyang</h5>
+      <div>I</div>
+      <div>A</div>
+      <div>M</div>
+      <div>B</div>
+      <div>O</div>
+      <div>Y</div>
+      <div>Y</div>
+      <div>A</div>
+      <div>N</div>
+      <div>G</div>
     </div>
     <div class="btn">
-      <div class="myShows" @click="$router.push('/myshows')">我的作品</div>
+      <!-- <div class="myShows" @click="$router.push('/myshows')">我的作品</div> -->
       <div class="myBlog">
         <a href="https://www.cnblogs.com/boyyangD/" target="_blank" rel="noopener noreferrer">我的博客</a>
       </div>
@@ -19,18 +28,20 @@
       </div>
       <div class="aboutMe" @click="$router.push('/about')">关于我</div>
     </div>
+    <div class="weather"></div>
   </div>
 </template>
 
 <script>
 export default {
-  name: "Home"
+  name: "Home",
+  components: {}
 };
 </script>
 
 <style scoped lang='less'>
 .home {
-  width: 80%;
+  width: 100%;
   height: 550px;
   margin-top: 35px;
   display: flex;
@@ -51,19 +62,71 @@ export default {
       padding: 0;
       color: rgba(155, 82, 82, 0.5);
       font-family: Verdana, Geneva, Tahoma, sans-serif;
+      animation: MOVERIGHT 3s;
+    }
+    :nth-child(1) {
+      animation-delay: 0s;
+    }
+    :nth-child(2) {
+      animation-delay: 0.3s;
+    }
+    :nth-child(3) {
+      animation-delay: 0.6s;
+    }
+    :nth-child(4) {
+      animation-delay: 1.2s;
     }
   }
   .title {
     position: absolute;
-    top: 30px;
-    left: 50px;
-    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-    font-size: 45px;
-    color: whitesmoke;
-    animation: leave 15s ease-in-out;
-    animation-delay: cos(50deg);
-    animation-timing-function: linear;
-    animation-iteration-count: infinite;
+    right: 250px;
+    top: 400px;
+    font-size: 30px;
+    color: white;
+    display: flex;
+    div {
+      position: relative;
+      margin: 20px;
+      width: 45px;
+      height: 45px;
+      text-align: center;
+      box-shadow: 0 3px 4px 0 rgba(36, 182, 121, 0.5);
+      border-radius: 10px;
+      animation: MOVE 1.8s;
+      animation-iteration-count: infinite;
+      transition: all 1.8s linear;
+      transition-timing-function: linear;
+    }
+    :nth-child(1) {
+      animation-delay: 0s;
+    }
+    :nth-child(2) {
+      animation-delay: 0.2s;
+    }
+    :nth-child(3) {
+      animation-delay: 0.4s;
+    }
+    :nth-child(4) {
+      animation-delay: 0.6s;
+    }
+    :nth-child(5) {
+      animation-delay: 0.8s;
+    }
+    :nth-child(6) {
+      animation-delay: 1s;
+    }
+    :nth-child(7) {
+      animation-delay: 1.2s;
+    }
+    :nth-child(8) {
+      animation-delay: 1.4s;
+    }
+    :nth-child(9) {
+      animation-delay: 1.6s;
+    }
+    :nth-child(10) {
+      animation-delay: 1.8s;
+    }
   }
   .btn {
     position: absolute;
@@ -73,16 +136,16 @@ export default {
     .myShows,
     .myBlog,
     .myGithub {
-      width: 200px;
+      width: 150px;
       height: 50px;
-      background-color: #fff;
+      background-color: #bf242a;
       margin: 25px;
       display: flex;
       justify-content: center;
       align-items: center;
       cursor: pointer;
       border-radius: 10px;
-      box-shadow: 0px 2px 3px 0px rgba(255, 255, 255, 0.5);
+      box-shadow: 0px 2px 3px 0px rgba(0, 0, 0, 0.5);
     }
     .myBlog,
     .myGithub {
@@ -98,22 +161,34 @@ export default {
       background-color: #44cef6;
     }
   }
-  @keyframes leave {
+  @keyframes MOVE {
     0% {
-      opacity: 0;
-      transform: translateX(300px) rotateY(360deg);
-    }
-    25% {
-      opacity: 1;
-      transform: translateY(200px) rotateZ(180deg);
+      transform: translateY(0px);
+      color: red;
     }
     50% {
-      opacity: 0;
-      transform: translateZ(100px) rotateY(100deg);
+      transform: translateY(80px);
+      color: yellow;
+      padding: 3px;
     }
     100% {
+      transform: translateY(0px);
+      color: #00e500;
+    }
+  }
+  @keyframes MOVERIGHT {
+    0% {
+      transform: translateY(0px);
+      opacity: 0;
+    }
+    50% {
+      transform: translateY(100px);
+      color: royalblue;
       opacity: 1;
-      transform: translateX(200px);
+    }
+    100% {
+      transform: translateY(0px);
+      opacity: 0;
     }
   }
 }
@@ -129,7 +204,16 @@ export default {
       display: none;
     }
     .title {
-      display: none;
+      // display: none;
+      top: 0;
+      right: 17px;
+      div {
+        width: 30px;
+        height: 30px;
+        font-size: 20px;
+        margin: 0;
+        text-align: center;
+      }
     }
     .btn {
       display: flex;

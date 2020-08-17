@@ -61,8 +61,8 @@ export default {
       if (state.flog == "推荐单曲") {
         state.url = "https://autumnfish.cn/personalized/newsong";
         let res = await getMusic(state);
-        state.songsList = res.data.result;
-        store.state.SongsList = state.songsList;
+        state.songsList = await res.data.result;
+        store.state.SongsList = await state.songsList;
       }
     };
     // 组件加载就获取推荐歌单数据

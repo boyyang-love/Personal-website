@@ -18,7 +18,7 @@ export default {
 
 <style scoped lang="less">
 .contact {
-  width: 75%;
+  width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;

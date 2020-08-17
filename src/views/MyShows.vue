@@ -1,9 +1,9 @@
 <template>
-  <div class="myshows animated rotateInUpLeft">
+  <div class="myshows">
     <div class="header">
       <div class="iconfont icon-fanhui1" @click="$router.back(1)"></div>
     </div>
-    <div class="content">
+    <!-- <div class="content">
       <div class="shows">
         <img src="../assets/img/photo3.jpg" alt />
         <a
@@ -28,7 +28,8 @@
           rel="noopener noreferrer"
         >音乐</a>
       </div>
-    </div>
+    </div>-->
+    <div class="content"></div>
   </div>
 </template>
 
@@ -58,7 +59,7 @@ export default {
   background-color: red;
   background-size: cover;
   background-position: center;
-  background-image: url("../assets/img/不知火.jpg");
+  background-image: url("../assets/img/boyyang.jpg");
   overflow-y: scroll;
   .header {
     width: 100%;
@@ -68,6 +69,7 @@ export default {
     top: 0;
     background: rgba(0, 0, 0, 0.6);
     @left();
+    z-index: 5;
     .iconfont {
       font-size: 30px;
       color: cadetblue;
@@ -79,34 +81,9 @@ export default {
     }
   }
   .content {
+    width: 100%;
+    position: relative;
     @center();
-    flex-wrap: wrap;
-    .shows {
-      width: 400px;
-      height: 300px;
-      background-color: #fff;
-      margin: 10px;
-      border-radius: 3px;
-      box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.6);
-      cursor: pointer;
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-      img {
-        width: 100%;
-        height: 253.6px;
-        border: 3px solid white;
-        box-sizing: border-box;
-        border-radius: 20px;
-      }
-      a {
-        text-align: center;
-      }
-    }
-    .shows:hover > img {
-      transform: scale(1.1);
-      transition: all 1s ease;
-    }
   }
 }
 

@@ -1,38 +1,37 @@
 <template>
   <div class="about">
     <div class="content animated slideInLeft">
-      <AboutDetail />
+      <Resume />
     </div>
   </div>
 </template>
 
 <script>
-import AboutDetail from "@/components/AboutDetail";
+import Resume from "@/components/Resume";
 export default {
   name: "About",
   components: {
-    AboutDetail
+    Resume
   }
 };
 </script>
 
 <style scoped lang="less">
 .about {
-  width: 75%;
+  width: 100%;
+  height: 550px;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-left: 35px;
+  margin: 0;
   .content {
     width: 95%;
-    height: 550px;
+    height: 100%;
     background: rgba(0, 0, 0, 0.5);
     border: 1px solid white;
     border-radius: 10px;
     box-shadow: 0 2px 3px 0px rgba(0, 0, 0, 0.5);
-    // display: flex;
-    // justify-content: center;
-    // align-items: center;
+    overflow-y: scroll;
   }
 }
 
@@ -45,7 +44,7 @@ export default {
     margin: 0;
     .content {
       width: 95%;
-      height: 550px;
+      height: 100%;
       background: rgba(0, 0, 0, 0.5);
       border: 1px solid white;
       border-radius: 10px;

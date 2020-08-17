@@ -1,6 +1,5 @@
 <template>
   <div class="contactdetail">
-    <h1>联系我</h1>
     <div class="contactMe">
       <div class="header">
         <img src="@/assets/img/不知火.jpg" alt />
@@ -8,12 +7,12 @@
       <div class="name">
         <h4>boyyang</h4>
       </div>
-      <h6>留言板</h6>
+      <h6 style="font-size: 18px">留言板</h6>
       <div class="textarea">
         <div class="login">
           <div class="logFirst">
             <i class="iconfont icon-kongjianjianmo"></i>
-            {{beforeLogin}}
+            {{ beforeLogin }}
           </div>
           <div class="toLogin" @click="login" v-show="!isLogin">登录</div>
           <div class="outLogin" @click="outlogin" v-show="isLogin">退出</div>
@@ -22,14 +21,33 @@
       </div>
       <div class="submit" @click="submit" v-show="isLogin">提交</div>
       <div class="comment" v-for="(item, i) in commentDetail" :key="i">
-        <div class="userIcon">{{(item.nickname).slice(0,1)}}</div>
+        <div class="userIcon">{{ item.nickname.slice(0, 1) }}</div>
         <div class="commentMes">
           <div class="commentUser">
-            {{item.nickname}}
-            <span class="time">{{item.commentTime}}</span>
+            {{ item.nickname }}
+            <span class="time">{{ item.commentTime }}</span>
           </div>
-          <div class="commentText">{{item.commentText}}</div>
-          <div class="reback" v-show="item.email == email " @click="delComment(item._id)">删除</div>
+          <div class="commentText">{{ item.commentText }}</div>
+          <div class="reback">
+            <span @click="rebackComment(item._id)">回复</span>
+            <span v-show="item.email == email" @click="delComment(item._id)">删除</span>
+          </div>
+          <!-- 其它评论 -->
+          <div class="otherComment" v-for="(comment, i) in item.otherPersonComments" :key="i">
+            <div class="personName">
+              <div class="commentheader">{{ comment.nickname.slice(0, 1) }}</div>
+              <div class="commentNickname">{{ comment.nickname }}</div>
+              <div class="commentTime">{{ comment.commentTime }}</div>
+            </div>
+            <div class="otherComments">{{ comment.comments }}</div>
+            <div class="otherCommentsDel">
+              <span
+                v-show="comment.email == email"
+                class="iconfont icon-cuowu11"
+                @click="delMineComment(i, item._id)"
+              ></span>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -40,22 +58,25 @@
           href="https://github.com/boyyang-love"
           target="_blank"
           rel="noopener noreferrer"
+          title="我的GitHub"
         ></a>
       </div>
       <div class="qq">
         <a
           class="iconfont icon-qq1"
-          href="https://github.com/boyyang-love"
+          href
           target="_blank"
           rel="noopener noreferrer"
+          title="QQ:1761617270"
         ></a>
       </div>
       <div class="email">
         <a
           class="iconfont icon-youxiang"
-          href="https://github.com/boyyang-love"
+          href
           target="_blank"
           rel="noopener noreferrer"
+          title="Email:1761617270@qq.com"
         ></a>
       </div>
     </div>
@@ -73,13 +94,13 @@
           <input type="text" name="nickname" v-model="nickname" placeholder="2~8位" />
           <i
             class="iconfont icon-tuichu2"
-            :style="{'color': Reg_nickname.test(nickname) ? '': 'red'  }"
+            :style="{ color: Reg_nickname.test(nickname) ? '' : 'red' }"
           ></i>
         </div>
         <div class="email">
           邮箱:
           <input type="email" name="email" v-model="email" placeholder="xxxx@xxx.com" />
-          <i class="iconfont icon-tuichu2" :style="{'color': Reg_email.test(email) ? '': 'red'}"></i>
+          <i class="iconfont icon-tuichu2" :style="{ color: Reg_email.test(email) ? '' : 'red' }"></i>
         </div>
       </div>
       <div class="message-submit">
@@ -88,13 +109,34 @@
       </div>
     </div>
   </div>
+  <!-- 评论回复模块 -->
+  <div class="mask" v-show="isReback">
+    <div class="alertBox">
+      <div class="head">{{ rebackPersonName }}</div>
+      <div class="reback">
+        <textarea cols="30" rows="8" v-model="rebackCommentText"></textarea>
+      </div>
+      <div class="btn">
+        <div class="back" @click="exitComment">退出</div>
+        <div class="ok" @click="sureComment">回复</div>
+      </div>
+    </div>
+  </div>
+  <!-- 加载loading -->
+  <div class="loading" v-show="isLoading">
+    <Loading />
+  </div>
 </template>
 
 <script>
-import axios from "axios";
-import { reactive, toRefs, onMounted } from "vue";
+import Loading from "@/components/Loading";
+import { reactive, toRefs } from "vue";
+import cloudbase from "@cloudbase/js-sdk";
 export default {
   name: "ContactDetail",
+  components: {
+    Loading
+  },
   setup() {
     const state = reactive({
       beforeLogin: "先登录哦！！",
@@ -103,8 +145,37 @@ export default {
       isLoginBox: false,
       nickname: "",
       email: "",
-      commentDetail: []
+      commentDetail: [],
+      isReback: false,
+      rebackPersonName: "",
+      rebackCommentText: "",
+      rebackPersonId: "",
+      isLoading: false
     });
+    const app = cloudbase.init({
+      env: "personal-web-5gfvc908ac76abb1"
+    });
+    const auth = app.auth({ persistence: "local" });
+    auth
+      .anonymousAuthProvider()
+      .signIn()
+      .then(() => {
+        let users = localStorage.getItem("users");
+        if (users) {
+          state.nickname = JSON.parse(users).nickname;
+          state.email = JSON.parse(users).email;
+          state.isLogin = true;
+          state.beforeLogin = `谢谢你的留言${state.nickname}~~~~ `;
+        }
+        getComment();
+      })
+      .catch(err => {
+        console.log(err);
+      });
+
+    const db = app.database();
+    const _ = db.command;
+
     // 昵称验证
     var Reg_nickname = /^.{2,8}$/;
     // 邮箱验证
@@ -112,17 +183,21 @@ export default {
     // 评论提交
     const submit = () => {
       if (state.commentText !== "") {
-        axios({
-          url: "/api/comment",
-          method: "post",
-          data: {
+        db.collection("comments")
+          .add({
+            nickname: state.nickname,
             email: state.email,
-            comment: state.commentText
-          }
-        }).then(() => {
-          getComment();
-          state.commentText = "";
-        });
+            commentText: state.commentText,
+            commentTime: new Date().toLocaleString(),
+            otherPersonComments: []
+          })
+          .then(() => {
+            state.commentText = "";
+            getComment();
+          })
+          .catch(err => {
+            console.log(err);
+          });
       } else {
         alert("评论不能为空");
       }
@@ -135,6 +210,7 @@ export default {
     const outlogin = () => {
       state.beforeLogin = "先登录哦！！";
       state.isLogin = false;
+      state.email = "";
       localStorage.removeItem("users");
     };
     // 登录事件
@@ -146,20 +222,40 @@ export default {
           state.isLoginBox = false;
           state.isLogin = true;
           // 将数据传进数据库
-          axios({
-            url: "/api/sinup",
-            method: "post",
-            data: {
-              nickname: state.nickname,
-              email: state.email
-            }
-          }).then(() => {
-            let users = {
-              nickname: state.nickname,
-              email: state.email
-            };
-            localStorage.setItem("users", JSON.stringify(users));
-          });
+          db.collection("users")
+            .where({ email: state.email })
+            .get()
+            .then(res => {
+              if (res.data.length !== 0) {
+                localStorage.setItem(
+                  "users",
+                  JSON.stringify({
+                    nickname: state.nickname,
+                    email: state.email
+                  })
+                );
+              } else {
+                db.collection("users")
+                  .add({
+                    nickname: state.nickname,
+                    email: state.email,
+                    signInTime: new Date().toLocaleString()
+                  })
+                  .then(() => {
+                    console.log("注册成功！！");
+                    localStorage.setItem(
+                      "users",
+                      JSON.stringify({
+                        nickname: state.nickname,
+                        email: state.email
+                      })
+                    );
+                  });
+              }
+            })
+            .catch(err => {
+              console.log(err);
+            });
         } else {
           alert("请正确填写昵称以及邮箱");
         }
@@ -167,43 +263,124 @@ export default {
         alert("输入不能为空");
       }
     };
-
     // 删除评论事件
-    const delComment = id => {
-      axios({
-        url: "/api/delComment",
-        method: "post",
-        data: {
-          _id: id
-        }
-      }).then(() => {
-        getComment();
-      });
-    };
-
-    // 本地储存登录信息
-    onMounted(async () => {
-      let users = await localStorage.getItem("users");
-      if (users) {
-        state.nickname = JSON.parse(users).nickname;
-        state.email = JSON.parse(users).email;
-        state.isLogin = true;
-        state.beforeLogin = `谢谢你的留言${state.nickname}~~~~ `;
+    const delComment = _id => {
+      // console.log(_id);
+      let r = confirm("是否删除该条评论");
+      if (r == true) {
+        app
+          .callFunction({
+            name: "delComment",
+            data: {
+              _id
+            }
+          })
+          .then(() => {
+            // console.log(res);
+            getComment();
+          });
+        // db.collection("comments")
+        //   .doc(_id)
+        //   .remove()
+        //   .then(res => {
+        //     console.log(res);
+        //     getComment();
+        //   })
+        //   .catch(err => {
+        //     console.log(err);
+        //   });
+      } else {
+        return;
       }
-      getComment();
-    });
-
+    };
+    // 回复评论事件
+    const rebackComment = async _id => {
+      if (state.isLogin == false) {
+        alert("登录后才可以评论哦!!");
+        state.isLoginBox = true;
+      } else {
+        state.isReback = true;
+        state.rebackPersonId = _id;
+        db.collection("comments")
+          .doc(_id)
+          .get()
+          .then(res => {
+            state.rebackPersonName = res.data[0].nickname;
+          })
+          .catch(err => {
+            console.log(err);
+          });
+      }
+    };
+    // 退出回复界面
+    const exitComment = () => {
+      state.isReback = false;
+    };
+    // 回复确定事件
+    const sureComment = () => {
+      if (state.rebackCommentText == "") {
+        alert("回复不能为空!!");
+      } else {
+        app
+          .callFunction({
+            name: "reback-comment",
+            data: {
+              rebackPersonId: state.rebackPersonId,
+              nickname: state.nickname,
+              email: state.email,
+              comment: state.rebackCommentText,
+              commentTime: new Date().toLocaleString()
+            }
+          })
+          .then(res => {
+            console.log(res);
+            state.isLoading = true;
+            state.isReback = false;
+            getComment();
+          });
+      }
+    };
+    // 删除自己的子评论
+    const delMineComment = (i, _id) => {
+      // console.log(i, _id);
+      state.isLoading = true;
+      db.collection("comments")
+        .doc(_id)
+        .get()
+        .then(async res => {
+          let result = await res.data[0].otherPersonComments;
+          result.splice(i, 1);
+          app
+            .callFunction({
+              name: "delMineComment",
+              data: {
+                _id: _id,
+                otherPersonComments: result
+              }
+            })
+            .then(res => {
+              console.log(res);
+              getComment();
+            });
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    };
     // 获取评论数据
     const getComment = () => {
-      axios({
-        url: "/api/allComment",
-        method: "get"
-      }).then(res => {
-        if (res.status == 200) {
-          state.commentDetail = res.data;
-          state.commentDetail.reverse();
-        }
-      });
+      db.collection("comments")
+        .where({
+          commentText: _.neq("")
+        })
+        .get()
+        .then(res => {
+          state.commentDetail = res.data.reverse();
+          state.isLoading = false;
+        })
+        .catch(err => {
+          console.log(err);
+        });
     };
 
     return {
@@ -214,7 +391,11 @@ export default {
       outlogin,
       Reg_nickname,
       Reg_email,
-      delComment
+      delComment,
+      rebackComment,
+      exitComment,
+      sureComment,
+      delMineComment
     };
   }
 };
@@ -243,6 +424,7 @@ export default {
   flex-direction: column;
   overflow-y: scroll;
   background-color: #665757;
+  border-radius: 10px;
   h1 {
     color: turquoise;
     justify-self: flex-start;
@@ -330,13 +512,14 @@ export default {
       display: flex;
       border-bottom: 2px solid #4c221b;
       .userIcon {
-        width: 40px;
+        width: 45px;
         height: 40px;
         border-radius: 100%;
         background-color: rgb(216, 114, 114);
         @center();
       }
       .commentMes {
+        width: 100%;
         margin-left: 25px;
         .commentUser {
           font-size: 15px;
@@ -352,15 +535,60 @@ export default {
           font-size: 16px;
         }
         .reback {
-          width: 45px;
+          width: 145px;
           font-size: 13px;
           color: #4c8dae;
           margin: 15px;
           cursor: pointer;
-          @center();
+          display: flex;
+          justify-content: flex-start;
+          span {
+            margin-left: 25px;
+          }
+          span:hover {
+            color: red;
+          }
         }
-        .reback:hover {
-          color: red;
+        .otherComment {
+          background-color: #f2ecde;
+          border-radius: 10px;
+          margin: 10px;
+          box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.6);
+          .personName {
+            font-size: 15px;
+            width: 100%;
+            color: #003371;
+            display: flex;
+
+            .commentheader {
+              width: 40px;
+              height: 40px;
+              background-color: #e29c45;
+              border-radius: 100%;
+              margin-top: 10px;
+              @center();
+            }
+            div {
+              margin-left: 15px;
+              @center();
+            }
+          }
+          .otherComments {
+            margin: 10px 55px;
+          }
+          .otherCommentsDel {
+            display: flex;
+            justify-content: flex-end;
+            padding: 15px;
+            cursor: pointer;
+            .iconfont {
+              font-size: 20px;
+              color: black;
+            }
+            .iconfont:hover {
+              color: red;
+            }
+          }
         }
       }
     }
@@ -479,7 +707,67 @@ export default {
     }
   }
 }
+// 评论回复样式
+.mask {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  @center();
+  background: rgba(0, 0, 0, 0.6);
+  .alertBox {
+    width: 45%;
+    height: 200px;
+    background-color: #88ada6;
+    position: fixed;
+    top: 200px;
+    border-radius: 10px;
+    box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.6);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    .head {
+      width: 100%;
+      height: 20px;
+      margin: 10px 0;
+      @center();
+    }
+    textarea {
+      width: 100%;
+    }
+    .btn {
+      width: 90%;
+      display: flex;
+      justify-content: space-around;
+      div {
+        width: 25%;
+        height: 25px;
+        box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.6);
+        border-radius: 4px;
+        cursor: pointer;
+        @center();
+      }
+      div:hover {
+        background-color: #ff4777;
+      }
+    }
+  }
+}
+//loading 样式
 
+.loading {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+  background-color: #fff;
+  background: rgba(0, 0, 0, 0.6);
+  border-radius: 10px;
+  @center();
+}
 @media screen and(max-width: 600px) {
   .contactdetail {
     .contactMe {
@@ -494,6 +782,42 @@ export default {
       .submit {
         width: 45%;
       }
+      .comment {
+        width: 99%;
+        .userIcon {
+          width: 40px;
+          height: 40px;
+        }
+        .commentMes {
+          width: 85%;
+          margin-left: 5px;
+          .otherComment {
+            margin: 5px 0;
+            .personName {
+              .commentheader {
+                margin: 2px;
+              }
+              .commentNickname {
+                margin-left: 3px;
+              }
+            }
+            .otherComments {
+              margin: 2px 5px;
+              word-break: break-word;
+            }
+          }
+        }
+      }
+    }
+  }
+  .loginbox {
+    .logBox {
+      width: 97%;
+    }
+  }
+  .mask {
+    .alertBox {
+      width: 90%;
     }
   }
 }

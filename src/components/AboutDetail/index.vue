@@ -30,7 +30,8 @@
                 href="https://github.com/boyyang-love"
                 target="_blank"
                 rel="noopener noreferrer"
-              >https://github.com/boyyang-love</a>
+                >https://github.com/boyyang-love</a
+              >
             </div>
             <div class="gitee">
               Gitee :
@@ -38,7 +39,8 @@
                 href="https://gitee.com/boyyanglove"
                 target="_blank"
                 rel="noopener noreferrer"
-              >https://gitee.com/boyyanglove</a>
+                >https://gitee.com/boyyanglove</a
+              >
             </div>
           </div>
         </div>
@@ -59,14 +61,25 @@
         </div>
         <div class="personalBox">
           <div class="skills">
-            <div class="s1">1.熟练使用Html, Css, Css3, 以及JavaScript, jquery快速搭建网页界面实现动态交互</div>
-            <div class="s2">2.掌握vue框架语法,并能够使用vue-cli快速搭建项目进行组件化开发</div>
+            <div class="s1">
+              1.熟练使用Html, Css, Css3, 以及JavaScript,
+              jquery快速搭建网页界面实现动态交互
+            </div>
+            <div class="s2">
+              2.掌握vue框架语法,并能够使用vue-cli快速搭建项目进行组件化开发
+            </div>
             <div class="s3">3.掌握vue3.0新特性并能够正确使用</div>
-            <div class="s4">4.掌握uni-app框架开发微信小程序,并且熟练使用uni-app的unicloud云开发</div>
+            <div class="s4">
+              4.掌握uni-app框架开发微信小程序,并且熟练使用uni-app的unicloud云开发
+            </div>
             <div class="s5">5.掌握微信原生小程序开发</div>
             <div class="s6">6.后端了解node.js , express, mongodb等</div>
-            <div class="s7">7.熟练使用git版本控制工具, 了解webpack打包以及配置</div>
-            <div class="s8">8.学习并了解typescript基本语法,掌握es6新语法特性等</div>
+            <div class="s7">
+              7.熟练使用git版本控制工具, 了解webpack打包以及配置
+            </div>
+            <div class="s8">
+              8.学习并了解typescript基本语法,掌握es6新语法特性等
+            </div>
           </div>
         </div>
         <div class="personalMes">
@@ -97,7 +110,8 @@
               <p>3. 最新音乐</p>
               <p>4. 推荐MV</p>
               <P>5. 首页收索</P>
-            </div>——————————————————————————————————
+            </div>
+            <div class="line">--------------------------</div>
             <div class="shows2">
               <h4>2. 原生微信交友小程序（2020年5月）</h4>
               <h4>主要技术栈</h4>
@@ -131,23 +145,16 @@
         </div>
       </div>
     </div>
-    <!-- <div class="resume">
-        <a
-          href="https://www.qmjianli.com/cv/20721VS0JGWT9SJQ"
-          target="_blank"
-          rel="noopener noreferrer"
-        >我的在线简历</a>
-    </div>-->
   </div>
 </template>
 
 <script>
 export default {
-  name: "AboutDetail"
+  name: "Aboutdetail",
 };
 </script>
 
-<style scopend lang='less'>
+<style scopend lang="less">
 // 居中
 @center: {
   display: flex;

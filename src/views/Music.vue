@@ -18,11 +18,11 @@ export default {
 
 <style scoped lang="less">
 .music {
-  width: 75%;
+  width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-left: 35px;
+  // margin-left: 35px;
   .content {
     width: 95%;
     height: 550px;
