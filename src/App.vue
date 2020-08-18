@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <Head />
-    <router-view />
+    <router-view></router-view>
   </div>
 </template>
 
@@ -33,7 +33,7 @@ export default {
 @media screen and(max-width: 600px) {
   #app {
     width: 100%;
-    min-height: 670px;
+    min-height: 660px;
     background-image: url("./assets/img/boyyang.jpg");
     background-position-x: center;
     background-size: cover;

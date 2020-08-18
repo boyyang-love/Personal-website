@@ -268,6 +268,7 @@ export default {
       // console.log(_id);
       let r = confirm("是否删除该条评论");
       if (r == true) {
+        state.isLoading = true;
         app
           .callFunction({
             name: "delComment",
@@ -321,6 +322,7 @@ export default {
       if (state.rebackCommentText == "") {
         alert("回复不能为空!!");
       } else {
+        state.isLoading = true;
         app
           .callFunction({
             name: "reback-comment",
@@ -334,7 +336,6 @@ export default {
           })
           .then(res => {
             console.log(res);
-            state.isLoading = true;
             state.isReback = false;
             getComment();
           });

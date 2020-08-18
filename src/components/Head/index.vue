@@ -14,6 +14,9 @@
         <li @click="routeJumb('contact')" :class="{active: name=='contact'}">
           <i class="iconfont icon-planetspacefl"></i>
         </li>
+        <li @click="routeJumb('center')" :class="{active: name=='center'}">
+          <i class="iconfont icon-gerenzhongxin"></i>
+        </li>
       </ul>
     </div>
   </div>
@@ -61,8 +64,6 @@ export default {
   .content {
     width: 100%;
     height: 550px;
-    // box-shadow: 5px 4px 7px 5px rgba(0, 0, 0, 0.4);
-    // background: rgba(77, 97, 153, 0.4);
     border-radius: 15px;
     margin-left: 20px;
     cursor: pointer;
@@ -70,7 +71,7 @@ export default {
     justify-content: center;
     align-items: center;
     ul {
-      width: 95%;
+      width: 100%;
       height: 90%;
       display: flex;
       flex-direction: column;
@@ -103,9 +104,6 @@ export default {
       }
     }
   }
-  // .content:hover {
-  //   background: rgba(83, 77, 167, 0.6);
-  // }
 }
 
 @media screen and(max-width: 600px) {

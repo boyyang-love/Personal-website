@@ -39,6 +39,16 @@ const routes = [{
     path: "/MvListDetail/:id",
     name: "MvListDetail",
     component: () => import( /* webpackChunkName: "mvdetail" */ "@/components/MvListDetail")
+  },
+  {
+    path: '/center',
+    name: "Center",
+    component: () => import( /* webpackChunkName: "center" */ "@/components/Center"),
+    children: [{
+      path: 'personalCenter',
+      name: 'PersonalCenter',
+      component: () => import( /* webpackChunkName: "personalcenter" */ "@/views/PersonalCenter")
+    }]
   }
 ];
 
