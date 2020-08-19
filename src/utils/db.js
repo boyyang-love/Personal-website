@@ -6,19 +6,19 @@ class Database {
     constructor(state) {
         this.state = state
         this.router = useRouter()
-        const app = cloudbase.init({
+        this.app = cloudbase.init({
             env: "personal-web-5gfvc908ac76abb1"
         })
-        const auth = app.auth({
+        this.auth = this.app.auth({
             persistence: 'local'
         })
-        auth
+        this.auth
             .anonymousAuthProvider()
             .signIn()
             .then(() => {
                 console.log('匿名登录成功')
             })
-        this.db = app.database()
+        this.db = this.app.database()
     }
 
     // 添加用户
@@ -85,6 +85,33 @@ class Database {
                     this.state.isLogined = false
                 }, 2000);
             }
+        })
+    }
+    // 获取用户数据
+    getMes() {
+
+    }
+    // 头像上传函数
+    uploadImg() {
+        this.app.uploadFile({
+            cloudPath: `${this.state.id}.jpg`,
+            filePath: this.state.fileUrl.files[0]
+        }).then((res) => {
+            this.app.getTempFileURL({
+                fileList: [{
+                    fileID: res.fileID,
+                    tempFileURL: '',
+                    maxAge: 120 * 60 * 10000
+                }]
+            }).then((res) => {
+                this.db.collection('register')
+                    .doc(this.state.id)
+                    .update({
+                        userImg: res.fileList[0].tempFileURL
+                    }).then((res) => {
+                        console.log(res)
+                    })
+            })
         })
     }
 }

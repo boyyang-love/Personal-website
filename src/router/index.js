@@ -45,7 +45,7 @@ const routes = [{
     name: "Center",
     component: () => import( /* webpackChunkName: "center" */ "@/components/Center"),
     children: [{
-      path: 'personalCenter',
+      path: 'personalCenter/:id',
       name: 'PersonalCenter',
       component: () => import( /* webpackChunkName: "personalcenter" */ "@/views/PersonalCenter")
     }]

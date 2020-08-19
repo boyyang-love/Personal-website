@@ -1,10 +1,10 @@
-import Database from "./db";
+import Database from "@/utils/db.js";
 // 登录注册逻辑
 class Login {
     constructor(state) {
         this.state = state;
         // this.router = router
-        this.database = new Database(this.state, this.router)
+        this.database = new Database(this.state)
     }
     // 注册
     SignUp() {
@@ -21,7 +21,6 @@ class Login {
                 email_Reg.test(this.state.email) &&
                 password_Reg.test(this.state.password)) {
                 if (this.state.password === this.state.repassword) {
-                    this.state.isLoading = true;
                     this.database.addUsers()
                 } else {
                     alert('密码不一致')

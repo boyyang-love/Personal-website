@@ -6,7 +6,6 @@ import "./registerServiceWorker";
 import router from "./router";
 import store from "./store";
 
-
 // const tcb = require('tcb-js-sdk')
 
 // const app = tcb.init({

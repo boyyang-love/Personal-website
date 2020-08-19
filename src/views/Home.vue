@@ -84,6 +84,7 @@ export default {
     font-size: 30px;
     color: white;
     display: flex;
+    z-index: 0;
     div {
       position: relative;
       margin: 20px;
