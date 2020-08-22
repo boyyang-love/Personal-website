@@ -2,7 +2,7 @@
   <div class="personalcenter">
     <div class="header">
       <div class="welcome">
-        <i class="iconfont icon-kongjian2" @click="isShow = true"></i>
+        <i class="iconfont icon-kongjian2" @click="rebackStyle"></i>
         欢迎{{ userMes.nickname }}来到你的个人空间
       </div>
       <div class="toHome">
@@ -11,7 +11,7 @@
     </div>
     <div class="content">
       <div class="userMes animated slideInRight" v-show="isShow">
-        <span class="hidden iconfont icon-back" @click="isShow = false"></span>
+        <span class="hidden iconfont icon-back" @click="changeStyle"></span>
         <span class="setting iconfont icon-shezhi3" @click="isShowChangeBox = !isShowChangeBox"></span>
         <div class="headerImg">
           <div class="img" @click="isChangeImg = !isChangeImg">
@@ -60,7 +60,7 @@
           </div>
         </div>
       </div>
-      <div class="myShows">
+      <div class="myShows" ref="content">
         <div class="shows" v-for="(item, i) in centerNews" :key="i">
           <div class="head">
             <div class="head_img">
@@ -132,7 +132,8 @@ export default {
       isLoading: false,
       userMes: "",
       addNews: false,
-      centerNews: ""
+      centerNews: "",
+      content: ref(null)
     });
 
     const detabase = new Detabase(state);
@@ -157,11 +158,26 @@ export default {
         state.imgFileUrl.files[0]
       );
     };
+    const changeStyle = () => {
+      state.isShow = false;
+      state.content.style.width = "100%";
+    };
+    const rebackStyle = () => {
+      state.isShow = true;
+      if (window.innerWidth < 600) {
+        state.content.style.width = "100%";
+      } else {
+        state.content.style.width = "70%";
+      }
+    };
+
     return {
       ...toRefs(state),
       uploadImg,
       submitChange,
-      submitNews
+      submitNews,
+      changeStyle,
+      rebackStyle
     };
   }
 };
@@ -314,8 +330,7 @@ export default {
       .contact {
         width: 90%;
         height: 5%;
-        background-color: #fff;
-        box-shadow: 2px 3px 2px 0 rgba(0, 0, 0, 0.4);
+
         font-size: 17px;
         box-sizing: border-box;
         border-radius: 4px;
@@ -459,20 +474,25 @@ export default {
     }
     .myShows {
       width: 70%;
-      height: 98%;
+      height: 95%;
       border-radius: 10px;
       box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.4);
-      margin: 10px 20px;
       overflow-y: scroll;
+      display: flex;
+      align-items: center;
+      flex-direction: column;
       @media screen and(max-width: 600px) {
         width: 95%;
       }
       .shows {
         background-color: #fff;
         border-radius: 5px;
-        margin: 15px 0;
         box-shadow: 2px 2px 3px 0 rgba(0, 0, 0, 0.4);
-        width: 100%;
+        width: 75%;
+        margin: 20px 0;
+        @media screen and(max-width: 600px) {
+          width: 100%;
+        }
         .head {
           display: flex;
           align-items: center;
@@ -484,6 +504,10 @@ export default {
             border: 2px solid white;
             overflow: hidden;
             @center();
+            @media screen and(max-width: 600px) {
+              width: 75px;
+              height: 75px;
+            }
             img {
               width: 180%;
             }
@@ -492,10 +516,17 @@ export default {
             color: rgb(119, 27, 27);
             font-size: 24px;
             margin: 0 20px;
+            @media screen and(max-width: 600px) {
+              font-size: 18px;
+              margin: 0 5px;
+            }
           }
           .head_time {
             color: rgba(207, 121, 106, 0.671);
             font-size: 18px;
+            @media screen and(max-width: 600px) {
+              font-size: 15px;
+            }
           }
         }
         .shows_content {
@@ -504,6 +535,9 @@ export default {
           .text {
             width: 75%;
             margin: 25px;
+            @media screen and(max-width: 600px) {
+              margin: 6px 5px;
+            }
           }
         }
         .shows_img {
@@ -513,11 +547,18 @@ export default {
             width: 90%;
             @start();
             margin: 20px 0;
+            @media screen and(max-width: 600px) {
+              font-size: 18px;
+              margin: 10px 5px;
+            }
             img {
               box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.4);
               width: 35%;
               border-radius: 5px;
               border: 1px solid rgb(49, 155, 155);
+              @media screen and(max-width: 600px) {
+                width: 75%;
+              }
             }
           }
         }
