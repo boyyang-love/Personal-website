@@ -78,8 +78,8 @@ export default {
     const state = reactive({
       isLogined: true,
       nickname: "",
-      email: "",
-      password: "",
+      email: "123456789@qq.com",
+      password: "111111",
       repassword: "",
       isLoading: false,
       loadingText: "疯狂加载中"

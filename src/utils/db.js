@@ -89,29 +89,127 @@ class Database {
     }
     // 获取用户数据
     getMes() {
-
+        this.db.collection('register')
+            .doc(this.state.id)
+            .get()
+            .then((res) => {
+                this.state.userMes = res.data[0]
+            }).catch((err) => {
+                console.log(err)
+            })
     }
     // 头像上传函数
     uploadImg() {
-        this.app.uploadFile({
-            cloudPath: `${this.state.id}.jpg`,
-            filePath: this.state.fileUrl.files[0]
-        }).then((res) => {
-            this.app.getTempFileURL({
-                fileList: [{
-                    fileID: res.fileID,
-                    tempFileURL: '',
-                    maxAge: 120 * 60 * 10000
-                }]
+        if (this.state.fileUrl.files.length == 0) {
+            alert('请选择要上传的图片')
+        } else {
+            this.state.isLoading = true;
+            this.app.uploadFile({
+                cloudPath: `${this.state.id}/${this.state.fileUrl.files[0].name}`,
+                filePath: this.state.fileUrl.files[0]
             }).then((res) => {
-                this.db.collection('register')
-                    .doc(this.state.id)
-                    .update({
-                        userImg: res.fileList[0].tempFileURL
-                    }).then((res) => {
-                        console.log(res)
+                this.app.getTempFileURL({
+                    fileList: [{
+                        fileID: res.fileID,
+                        tempFileURL: '',
+                        maxAge: 120 * 60 * 10000
+                    }]
+                }).then((res) => {
+                    this.app.callFunction({
+                        name: 'upload',
+                        data: {
+                            id: this.state.id,
+                            userImg: res.fileList[0].tempFileURL
+                        }
+                    }).then(() => {
+                        this.getMes(this.state.id)
+                        this.state.isLoading = false
+                        this.state.isChangeImg = false
                     })
+                })
             })
+        }
+
+    }
+    // 更改基本信息
+    changeMes() {
+        this.state.isLoading = true;
+        this.app.callFunction({
+            name: 'uploadmes',
+            data: {
+                id: this.state.id,
+                nickname: this.state.userMes.nickname,
+                motto: this.state.userMes.motto,
+                QQ: this.state.userMes.QQ
+            }
+        }).then(() => {
+            this.getMes()
+            this.state.isLoading = false
+            this.state.isShowChangeBox = false
+        })
+    }
+    // 上传动态
+    submitNews(id, text, file) {
+        if (text.length == 0) {
+            alert('请输入动态内容')
+        } else {
+            if (!file) {
+                this.state.isLoading = true
+                this.db.collection('center').add({
+                    ID: id,
+                    text: text,
+                    img: "",
+                    nickname: this.state.userMes.nickname,
+                    time: new Date().toLocaleString()
+
+                }).then(() => {
+                    this.state.isLoading = false
+                    this.state.addNews = false
+                    this.state.imgFileUrl = null
+                    this.state.centerText = ''
+                    this.getNews(this.state.id)
+                })
+            } else {
+                this.state.isLoading = true
+                this.app.uploadFile({
+                    cloudPath: `${id}/${file.name}`,
+                    filePath: file
+                }).then((res) => {
+                    this.app.getTempFileURL({
+                        fileList: [{
+                            fileID: res.fileID,
+                            tempFileURL: '',
+                            maxAge: 120 * 60 * 10000
+                        }]
+                    }).then((res) => {
+                        this.db.collection('center').add({
+                            ID: id,
+                            text: text,
+                            img: res.fileList[0].tempFileURL,
+                            nickname: this.state.userMes.nickname,
+                            time: new Date().toLocaleString()
+
+                        }).then(() => {
+                            this.state.isLoading = false
+                            this.state.addNews = false
+                            this.state.imgFileUrl = null
+                            this.state.centerText = ''
+                            this.getNews(this.state.id)
+                        })
+                    })
+                })
+            }
+
+        }
+        // 上传图片
+
+    }
+    // 获取动态内容
+    getNews(id) {
+        this.db.collection("center").where({
+            ID: id
+        }).get().then((res) => {
+            this.state.centerNews = res.data.reverse()
         })
     }
 }
