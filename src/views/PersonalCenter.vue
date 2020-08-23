@@ -12,7 +12,10 @@
     <div class="content">
       <div class="userMes animated slideInRight" v-show="isShow">
         <span class="hidden iconfont icon-back" @click="changeStyle"></span>
-        <span class="setting iconfont icon-shezhi3" @click="isShowChangeBox = !isShowChangeBox"></span>
+        <span
+          class="setting iconfont icon-shezhi3"
+          @click="isShowChangeBox = !isShowChangeBox"
+        ></span>
         <div class="headerImg">
           <div class="img" @click="isChangeImg = !isChangeImg">
             <img :src="userMes.userImg" alt />
@@ -35,7 +38,10 @@
         <div class="card">
           <div class="card1">
             <span>添加</span>
-            <i class="iconfont icon-zhongxindongtai" @click="addNews = !addNews"></i>
+            <i
+              class="iconfont icon-zhongxindongtai"
+              @click="addNews = !addNews"
+            ></i>
             <span>动态</span>
           </div>
           <div class="card2"></div>
@@ -62,18 +68,19 @@
       </div>
       <div class="myShows" ref="content">
         <div class="shows" v-for="(item, i) in centerNews" :key="i">
+          <div class="del iconfont icon-nb-" @click="del(item._id)"></div>
           <div class="head">
             <div class="head_img">
               <img :src="userMes.userImg" alt />
             </div>
-            <div class="head_name">{{item.nickname}}</div>
-            <div class="head_time">{{item.time}}</div>
+            <div class="head_name">{{ item.nickname }}</div>
+            <div class="head_time">{{ item.time }}</div>
           </div>
           <div class="shows_content">
-            <div class="text">{{item.text}}</div>
+            <div class="text">{{ item.text }}</div>
           </div>
           <div class="shows_img">
-            <div class="img" v-show="item.img !=''">
+            <div class="img" v-show="item.img != ''">
               <img :src="item.img" alt />
             </div>
           </div>
@@ -92,7 +99,7 @@
       </div>
       <!-- 添加动态弹窗 -->
       <div class="alert_box animated pulse" v-show="addNews">
-        <div class="box_head">{{userMes.nickname}}</div>
+        <div class="box_head">{{ userMes.nickname }}</div>
         <div class="box_input">
           <textarea name id cols="30" rows="10" v-model="centerText"></textarea>
         </div>
@@ -133,7 +140,7 @@ export default {
       userMes: "",
       addNews: false,
       centerNews: "",
-      content: ref(null)
+      content: ref(null),
     });
 
     const detabase = new Detabase(state);
@@ -158,6 +165,7 @@ export default {
         state.imgFileUrl.files[0]
       );
     };
+    // 改变动态栏的宽度样式
     const changeStyle = () => {
       state.isShow = false;
       state.content.style.width = "100%";
@@ -170,6 +178,10 @@ export default {
         state.content.style.width = "70%";
       }
     };
+    // 删除个人动态
+    const del = (_id) => {
+      detabase.delNews(_id);
+    };
 
     return {
       ...toRefs(state),
@@ -177,9 +189,10 @@ export default {
       submitChange,
       submitNews,
       changeStyle,
-      rebackStyle
+      rebackStyle,
+      del,
     };
-  }
+  },
 };
 </script>
 
@@ -490,8 +503,20 @@ export default {
         box-shadow: 2px 2px 3px 0 rgba(0, 0, 0, 0.4);
         width: 75%;
         margin: 20px 0;
+        position: relative;
         @media screen and(max-width: 600px) {
           width: 100%;
+        }
+        .del {
+          position: absolute;
+          top: 10px;
+          right: 10px;
+          font-size: 24px;
+          color: black;
+          cursor: pointer;
+          &:hover {
+            color: red;
+          }
         }
         .head {
           display: flex;

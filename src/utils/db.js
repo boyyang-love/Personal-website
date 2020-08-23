@@ -105,7 +105,7 @@ class Database {
         } else {
             this.state.isLoading = true;
             this.app.uploadFile({
-                cloudPath: `${this.state.id}/${this.state.fileUrl.files[0].name}`,
+                cloudPath: `${this.state.id}/headerImg/${this.state.fileUrl.files[0].name}`,
                 filePath: this.state.fileUrl.files[0]
             }).then((res) => {
                 this.app.getTempFileURL({
@@ -172,7 +172,7 @@ class Database {
             } else {
                 this.state.isLoading = true
                 this.app.uploadFile({
-                    cloudPath: `${id}/${file.name}`,
+                    cloudPath: `${id}/center/${file.name}`,
                     filePath: file
                 }).then((res) => {
                     this.app.getTempFileURL({
@@ -211,6 +211,22 @@ class Database {
         }).get().then((res) => {
             this.state.centerNews = res.data.reverse()
         })
+    }
+    // 删除动态
+    delNews(_id) {
+        this.state.isLoading = true
+        this.state.loadingText = "删除动态中"
+        this.app.callFunction({
+            name: "delCenterNews",
+            data: {
+                _id
+            }
+        }).then(() => {
+            this.state.isLoading = false
+            this.getNews(this.state.id)
+        }).catch((err) => [
+            console.log(err)
+        ])
     }
 }
 
