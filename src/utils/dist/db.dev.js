@@ -192,6 +192,8 @@ function () {
       if (text.length == 0) {
         alert('请输入动态内容');
       } else {
+        this.state.loadingText = '动态上传中';
+
         if (!file) {
           this.state.isLoading = true;
           this.db.collection('center').add({

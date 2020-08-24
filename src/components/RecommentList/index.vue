@@ -30,6 +30,7 @@ export default {
     state.recommendList = computed(() => {
       return store.state.RecommentList;
     });
+
     let toDetail = (id) => {
       router.push({
         name: "ListDetail",

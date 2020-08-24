@@ -578,7 +578,7 @@ export default {
             }
             img {
               box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.4);
-              width: 35%;
+              width: 75%;
               border-radius: 5px;
               border: 1px solid rgb(49, 155, 155);
               @media screen and(max-width: 600px) {
