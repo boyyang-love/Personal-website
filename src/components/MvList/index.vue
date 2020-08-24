@@ -44,6 +44,7 @@ export default {
 <style scoped lang="less">
 .Mv {
   width: 100%;
+  height: 100%;
   .content {
     width: 100%;
     height: 100%;
@@ -54,23 +55,30 @@ export default {
     align-items: center;
     .mv {
       width: 25%;
-      height: 150px;
-      margin: 20px;
+      height: 35%;
+      margin: 1% 2%;
       display: flex;
       justify-content: center;
       align-items: center;
+      box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.5);
+      border: 2px solid white;
       flex-wrap: wrap;
       position: relative;
+      overflow: hidden;
       img {
+        height: 100%;
         width: 100%;
-        height: 135.17px;
-        border: 2px solid whitesmoke;
         border-radius: 3px;
       }
       h5 {
-        margin-top: 5px;
-        padding: 0;
+        width: 100%;
+        margin: 5px 0;
+        position: absolute;
+        top: 0;
+        left: 0;
         text-align: center;
+        color: black;
+        background-color: rgb(23, 161, 53);
       }
       .iconfont {
         position: absolute;

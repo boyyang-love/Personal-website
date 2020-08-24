@@ -1,16 +1,12 @@
 <template>
   <div id="app">
-    <Head />
     <router-view></router-view>
   </div>
 </template>
 
 <script>
-import Head from "@/components/Head";
 export default {
-  components: {
-    Head
-  }
+  components: {}
 };
 </script>
 
@@ -22,8 +18,8 @@ export default {
 }
 #app {
   width: 100%;
-  min-height: 600px;
-  background-image: url("./assets/img/boyyang.jpg");
+  height: 100%;
+  background-image: url("./assets/img/犬夜叉桔梗4k动漫壁纸3840x2160_彼岸图网.jpg");
   background-size: cover;
   display: flex;
   align-items: center;
@@ -33,14 +29,10 @@ export default {
 @media screen and(max-width: 600px) {
   #app {
     width: 100%;
-    min-height: 660px;
-    background-image: url("./assets/img/boyyang.jpg");
-    background-position-x: center;
+    height: 660px;
+    background-position-x: 525px;
     background-size: cover;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    align-items: flex-start;
   }
 }
 </style>

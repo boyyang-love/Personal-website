@@ -3,7 +3,10 @@
     <div class="content">
       <div class="music" v-for="(item, i) in recommendList" :key="i">
         <img :src="item.picUrl" alt />
-        <div class="play iconfont icon-bofang1" @click="toDetail(item.id)"></div>
+        <div
+          class="play iconfont icon-bofang1"
+          @click="toDetail(item.id)"
+        ></div>
         <div class="name">{{ item.name }}</div>
       </div>
     </div>
@@ -18,7 +21,7 @@ export default {
   name: "RecommendList",
   setup() {
     const state = reactive({
-      recommendList: ""
+      recommendList: "",
     });
 
     const store = useStore();
@@ -27,19 +30,19 @@ export default {
     state.recommendList = computed(() => {
       return store.state.RecommentList;
     });
-    let toDetail = id => {
+    let toDetail = (id) => {
       router.push({
         name: "ListDetail",
         params: {
-          id
-        }
+          id,
+        },
       });
     };
     return {
       ...toRefs(state),
-      toDetail
+      toDetail,
     };
-  }
+  },
 };
 </script>
 
@@ -53,18 +56,19 @@ export default {
     align-items: center;
     flex-wrap: wrap;
     .music {
-      width: 25%;
-      height: 250px;
-      margin: 15px;
+      width: 19%;
+      height: 15%;
+      margin: 0.5% 1%;
       display: flex;
       justify-content: center;
       align-items: center;
       position: relative;
       img {
         width: 100%;
+        height: 100%;
         margin: 5px;
         border-radius: 15px;
-        box-shadow: 0px 2px 5px 1px rgba(87, 145, 99, 0.5);
+        box-shadow: 0px 2px 5px 1px rgba(87, 145, 99, 0.7);
         opacity: 0.6;
         cursor: pointer;
       }
@@ -79,15 +83,15 @@ export default {
       }
       .name {
         position: absolute;
-        top: 7px;
+        top: 0px;
         left: 0;
         width: 100%;
         height: 45px;
         z-index: 2;
-        color: #9d2933;
+        color: #080808;
         display: none;
         border-radius: 15px 15px 5px 5px;
-        background: rgba(219, 228, 221, 0.5);
+        background: rgba(219, 228, 221, 1);
         text-overflow: ellipsis;
         text-align: center;
       }

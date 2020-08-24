@@ -1,231 +1,184 @@
 <template>
   <div class="home">
-    <div class="content">
-      <p>千山鸟飞绝</p>
-      <p>万径人踪灭</p>
-      <p>孤舟蓑笠翁</p>
-      <p>独钓寒江雪</p>
+    <div class="exit iconfont icon-icon1" @click="hiddenNav"></div>
+    <div class="nav" v-show="isShow">
+      <ul>
+        <li @click="routeJumb('/')" class="active">
+          <i class="iconfont icon-shouye3"></i>Home
+        </li>
+        <li @click="routeJumb('music')">
+          <i class="iconfont icon-yinle"></i>Music
+        </li>
+        <li @click="routeJumb('center')">
+          <i class="iconfont icon-tubiaosvg-"></i>Center
+        </li>
+        <li @click="routeJumb('contact')">
+          <i class="iconfont icon-41shuoshuo"></i>Contact
+        </li>
+        <li @click="routeJumb('about')">
+          <i class="iconfont icon-guanyuwomen"></i>About
+        </li>
+      </ul>
     </div>
-    <div class="title">
-      <div>I</div>
-      <div>A</div>
-      <div>M</div>
-      <div>B</div>
-      <div>O</div>
-      <div>Y</div>
-      <div>Y</div>
-      <div>A</div>
-      <div>N</div>
-      <div>G</div>
-    </div>
-    <div class="btn">
-      <!-- <div class="myShows" @click="$router.push('/myshows')">我的作品</div> -->
-      <div class="myBlog">
-        <a href="https://www.cnblogs.com/boyyangD/" target="_blank" rel="noopener noreferrer">我的博客</a>
+    <div class="other">
+      <div class="blog">
+        <a
+          href="https://www.cnblogs.com/boyyangD/"
+          target="_blank"
+          rel="noopener noreferrer"
+          >我的博客</a
+        >
       </div>
-      <div class="myGithub">
-        <a href="https://github.com/boyyang-love" target="_blank" rel="noopener noreferrer">GitHub</a>
+      <div class="github">
+        <a
+          href="https://github.com/boyyang-love"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="iconfont icon-github"
+          >GitHub</a
+        >
       </div>
-      <div class="aboutMe" @click="$router.push('/about')">关于我</div>
     </div>
-    <div class="weather"></div>
   </div>
 </template>
 
 <script>
+import { reactive, toRefs } from "vue";
+import { useRouter } from "vue-router";
 export default {
   name: "Home",
-  components: {}
+  components: {},
+  setup() {
+    const state = reactive({
+      isShow: true,
+    });
+    const router = useRouter();
+
+    let routeJumb = (path) => {
+      router.push(path);
+    };
+
+    const hiddenNav = () => {
+      state.isShow = !state.isShow;
+    };
+
+    return {
+      ...toRefs(state),
+      routeJumb,
+      hiddenNav,
+    };
+  },
 };
 </script>
 
-<style scoped lang='less'>
-.home {
-  width: 100%;
-  height: 550px;
-  margin-top: 35px;
+<style scoped lang="less">
+.active {
+  background-color: rgba(185, 31, 31, 0.6);
+}
+* {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+@center: {
   display: flex;
   justify-content: center;
   align-items: center;
+};
+.home {
+  width: 100%;
+  height: 600px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-direction: column;
   position: relative;
-  .content {
-    width: 15%;
-    height: 200px;
-    display: flex;
-    flex-direction: row-reverse;
-    position: absolute;
-    right: 10px;
-    top: 15px;
-    p {
-      font-size: 25px;
-      margin: 0;
-      padding: 0;
-      color: rgba(155, 82, 82, 0.5);
-      font-family: Verdana, Geneva, Tahoma, sans-serif;
-      animation: MOVERIGHT 3s;
-    }
-    :nth-child(1) {
-      animation-delay: 0s;
-    }
-    :nth-child(2) {
-      animation-delay: 0.3s;
-    }
-    :nth-child(3) {
-      animation-delay: 0.6s;
-    }
-    :nth-child(4) {
-      animation-delay: 1.2s;
-    }
+  @media screen and(max-width: 600px) {
+    height: 660px;
   }
-  .title {
-    position: absolute;
-    right: 250px;
-    top: 400px;
-    font-size: 30px;
-    color: white;
-    display: flex;
-    z-index: 0;
-    div {
-      position: relative;
-      margin: 20px;
-      width: 45px;
-      height: 45px;
-      text-align: center;
-      box-shadow: 0 3px 4px 0 rgba(36, 182, 121, 0.5);
-      border-radius: 10px;
-      animation: MOVE 1.8s;
-      animation-iteration-count: infinite;
-      transition: all 1.8s linear;
-      transition-timing-function: linear;
-    }
-    :nth-child(1) {
-      animation-delay: 0s;
-    }
-    :nth-child(2) {
-      animation-delay: 0.2s;
-    }
-    :nth-child(3) {
-      animation-delay: 0.4s;
-    }
-    :nth-child(4) {
-      animation-delay: 0.6s;
-    }
-    :nth-child(5) {
-      animation-delay: 0.8s;
-    }
-    :nth-child(6) {
-      animation-delay: 1s;
-    }
-    :nth-child(7) {
-      animation-delay: 1.2s;
-    }
-    :nth-child(8) {
-      animation-delay: 1.4s;
-    }
-    :nth-child(9) {
-      animation-delay: 1.6s;
-    }
-    :nth-child(10) {
-      animation-delay: 1.8s;
-    }
-  }
-  .btn {
-    position: absolute;
-    right: 0;
-    bottom: 0;
-    .aboutMe,
-    .myShows,
-    .myBlog,
-    .myGithub {
-      width: 150px;
+  .exit {
+    display: none;
+    @media screen and(max-width: 600px) {
+      width: 100%;
       height: 50px;
-      background-color: #bf242a;
-      margin: 25px;
+      display: block;
+      font-size: 24px;
       display: flex;
       justify-content: center;
       align-items: center;
       cursor: pointer;
-      border-radius: 10px;
-      box-shadow: 0px 2px 3px 0px rgba(0, 0, 0, 0.5);
-    }
-    .myBlog,
-    .myGithub {
-      a {
-        text-decoration: none;
-        color: black;
+      &:hover {
+        color: red;
       }
     }
-    .aboutMe:hover,
-    .myShows:hover,
-    .myBlog:hover,
-    .myGithub:hover {
-      background-color: #44cef6;
-    }
   }
-  @keyframes MOVE {
-    0% {
-      transform: translateY(0px);
-      color: red;
+  .nav {
+    width: 95%;
+    height: 75px;
+    background: rgba(133, 86, 86, 0.6);
+    box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.6);
+    margin-top: 10px;
+    border-radius: 5px;
+    @media screen and(max-width: 600px) {
+      height: 60%;
     }
-    50% {
-      transform: translateY(80px);
-      color: yellow;
-      padding: 3px;
-    }
-    100% {
-      transform: translateY(0px);
-      color: #00e500;
-    }
-  }
-  @keyframes MOVERIGHT {
-    0% {
-      transform: translateY(0px);
-      opacity: 0;
-    }
-    50% {
-      transform: translateY(100px);
-      color: royalblue;
-      opacity: 1;
-    }
-    100% {
-      transform: translateY(0px);
-      opacity: 0;
-    }
-  }
-}
-@media screen and(max-width: 600px) {
-  .home {
-    width: 100%;
-    height: 500px;
-    margin-top: 0px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    .content {
-      display: none;
-    }
-    .title {
-      // display: none;
-      top: 0;
-      right: 17px;
-      div {
-        width: 30px;
-        height: 30px;
-        font-size: 20px;
-        margin: 0;
-        text-align: center;
-      }
-    }
-    .btn {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      flex-direction: column;
+    ul {
       width: 100%;
-      position: absolute;
-      z-index: 10;
+      height: 100%;
+      @center();
+      @media screen and(max-width: 600px) {
+        flex-direction: column;
+      }
+      li {
+        flex: 1;
+        height: 100%;
+        font-size: 20px;
+        cursor: pointer;
+        border-radius: 5px;
+        color: whitesmoke;
+        @center();
+        &:hover {
+          background-color: rgba(24, 21, 21, 0.6);
+        }
+        @media screen and(max-width: 600px) {
+          width: 100%;
+        }
+        i {
+          font-size: 24px;
+          margin: 5px;
+        }
+      }
+    }
+  }
+  .other {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 25%;
+    height: 40%;
+    @center();
+    flex-direction: column;
+    @media screen and(max-width: 600px) {
+      width: 100%;
       bottom: 0;
-      right: 0;
+    }
+    div {
+      width: 45%;
+      height: 20%;
+      background-color: #fff;
+      margin: 10px;
+      box-shadow: 0 2px 3px 1px rgba(0, 0, 0, 0.6);
+      border-radius: 10px;
+      cursor: pointer;
+      @center();
+      a {
+        font-size: 25px;
+        margin: 3px;
+        text-decoration: none;
+      }
+      &:hover {
+        background-color: rgb(48, 129, 84);
+      }
     }
   }
 }

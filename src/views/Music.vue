@@ -1,5 +1,6 @@
 <template>
   <div class="music">
+    <div class="back iconfont icon-cuowu11" @click="$router.push('/')"></div>
     <div class="content animated slideInDown">
       <MusicHead />
     </div>
@@ -8,10 +9,12 @@
 
 <script>
 import MusicHead from "@/components/MusicHead";
+// import Home from "@/views/Home";
 export default {
   name: "Music",
   components: {
     MusicHead
+    // Home
   }
 };
 </script>
@@ -22,13 +25,21 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
-  // margin-left: 35px;
+  flex-direction: column;
+  .back {
+    font-size: 24px;
+    margin: 10px;
+    cursor: pointer;
+    &:hover {
+      color: red;
+    }
+  }
   .content {
-    width: 95%;
+    width: 100%;
     height: 550px;
     background: rgba(0, 0, 0, 0.5);
-    border: 1px solid white;
-    border-radius: 10px;
+    // border: 1px solid white;
+    // border-radius: 10px;
     box-shadow: 0 2px 3px 0px rgba(0, 0, 0, 0.5);
   }
 }

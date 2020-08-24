@@ -419,8 +419,9 @@ export default {
 };
 .contactdetail {
   width: 100%;
+  height: 100%;
   display: flex;
-  justify-content: flex-start;
+  // justify-content: center;
   align-items: center;
   flex-direction: column;
   overflow-y: scroll;

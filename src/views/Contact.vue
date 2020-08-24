@@ -1,5 +1,6 @@
 <template>
   <div class="contact">
+    <div class="back iconfont icon-cuowu11" @click="$router.push('/')"></div>
     <div class="content animated rotateInDownLeft">
       <ContactDetail />
     </div>
@@ -22,16 +23,26 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-left: 35px;
+  flex-direction: column;
+  .back {
+    font-size: 24px;
+    cursor: pointer;
+    margin: 10px;
+    &:hover {
+      color: red;
+    }
+  }
   .content {
-    width: 95%;
+    width: 100%;
     height: 550px;
     background: rgba(0, 0, 0, 0.5);
-    border: 1px solid white;
-    border-radius: 10px;
+    // border: 1px solid white;
+    // border-radius: 10px;
     box-shadow: 0 2px 3px 0px rgba(0, 0, 0, 0.5);
     display: flex;
     justify-content: center;
+    align-items: center;
+    flex-direction: column;
   }
 }
 

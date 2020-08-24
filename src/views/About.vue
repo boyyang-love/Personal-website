@@ -1,5 +1,6 @@
 <template>
   <div class="about">
+    <div class="back iconfont icon-cuowu11" @click="$router.push('/')"></div>
     <div class="content animated slideInLeft">
       <Resume />
     </div>
@@ -24,8 +25,17 @@ export default {
   align-items: center;
   justify-content: center;
   margin: 0;
+  flex-direction: column;
+  .back {
+    font-size: 24px;
+    margin: 10px;
+    cursor: pointer;
+    &:hover {
+      color: red;
+    }
+  }
   .content {
-    width: 95%;
+    width: 100%;
     height: 100%;
     background: rgba(0, 0, 0, 0.5);
     border: 1px solid white;
