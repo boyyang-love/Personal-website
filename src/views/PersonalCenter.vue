@@ -12,13 +12,10 @@
     <div class="content">
       <div class="userMes animated slideInRight" v-show="isShow">
         <span class="hidden iconfont icon-back" @click="changeStyle"></span>
-        <span
-          class="setting iconfont icon-shezhi3"
-          @click="isShowChangeBox = !isShowChangeBox"
-        ></span>
+        <span class="setting iconfont icon-shezhi3" @click="isShowChangeBox = !isShowChangeBox"></span>
         <div class="headerImg">
           <div class="img" @click="isChangeImg = !isChangeImg">
-            <img :src="userMes.userImg" alt />
+            <img :src="userMes.avatarUrl" alt />
           </div>
         </div>
         <div class="input" v-show="isChangeImg">
@@ -38,10 +35,7 @@
         <div class="card">
           <div class="card1">
             <span>添加</span>
-            <i
-              class="iconfont icon-zhongxindongtai"
-              @click="addNews = !addNews"
-            ></i>
+            <i class="iconfont icon-zhongxindongtai" @click="addNews = !addNews"></i>
             <span>动态</span>
           </div>
           <div class="card2"></div>
@@ -121,7 +115,7 @@
 <script>
 import { reactive, toRefs, ref } from "vue";
 import { useRouter } from "vue-router";
-import Detabase from "@/utils/db";
+import Database from "@/utils/testDb.js";
 export default {
   name: "PersonalCenter",
   components: {},
@@ -140,26 +134,28 @@ export default {
       userMes: "",
       addNews: false,
       centerNews: "",
-      content: ref(null),
+      content: ref(null)
     });
 
-    const detabase = new Detabase(state);
+    const database = new Database(state);
     const router = useRouter();
     state.id = router.currentRoute.value.params.id;
     // 获取基本信息
-    detabase.getMes();
-    detabase.getNews(state.id);
+    database.getMes();
+    // 获取动态内容
+    database.getNews(state.id);
+
     // 更换头像
     const uploadImg = () => {
-      detabase.uploadImg();
+      database.uploadImg();
     };
     // 更新基本信息
     const submitChange = () => {
-      detabase.changeMes();
+      database.changeMes();
     };
     // 提交动态
     const submitNews = () => {
-      detabase.submitNews(
+      database.submitNews(
         state.id,
         state.centerText,
         state.imgFileUrl.files[0]
@@ -179,8 +175,8 @@ export default {
       }
     };
     // 删除个人动态
-    const del = (_id) => {
-      detabase.delNews(_id);
+    const del = _id => {
+      database.delNews(_id);
     };
 
     return {
@@ -190,9 +186,9 @@ export default {
       submitNews,
       changeStyle,
       rebackStyle,
-      del,
+      del
     };
-  },
+  }
 };
 </script>
 

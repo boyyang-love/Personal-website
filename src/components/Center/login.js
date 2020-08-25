@@ -1,4 +1,4 @@
-import Database from "@/utils/db.js";
+import Database from "@/utils/testDb.js";
 // 登录注册逻辑
 class Login {
     constructor(state) {
@@ -13,7 +13,7 @@ class Login {
         // 邮箱验证
         let email_Reg = /^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/;
         // 密码验证
-        let password_Reg = /^.{6,12}$/;
+        let password_Reg = /^.{6,18}$/;
         if (this.state.nickname == '' || this.state.email == '' || this.state.password == '' || this.state.repassword == '') {
             alert('输入不能为空')
         } else {

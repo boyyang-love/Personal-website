@@ -36,7 +36,7 @@
         </div>
         <div class="password">
           <span>密码</span>
-          <input type="password" v-model="password" placeholder="6~12位任意字符" />
+          <input type="password" v-model="password" placeholder="6~18位任意字符" />
           <span
             class="iconfont icon-zhengque3"
             v-show="password_Reg.test(password) && password === repassword"
@@ -78,11 +78,12 @@ export default {
     const state = reactive({
       isLogined: true,
       nickname: "",
-      email: "123456789@qq.com",
-      password: "111111",
-      repassword: "",
+      email: "1761617270@qq.com",
+      password: "yzhd45683968yzhd",
+      repassword: "yzhd45683968yzhd",
       isLoading: false,
-      loadingText: "疯狂加载中"
+      loadingText: "疯狂加载中",
+      id: ""
     });
 
     //昵称验证规则
@@ -90,7 +91,7 @@ export default {
     // 邮箱验证
     let email_Reg = /^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/;
     // 密码验证
-    let password_Reg = /^.{6,12}$/;
+    let password_Reg = /^.{6,18}$/;
 
     let login = new Login(state);
     // 登录，点击事件

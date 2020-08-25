@@ -171,6 +171,7 @@ export default {
       })
       .catch(err => {
         console.log(err);
+        getComment();
       });
 
     const db = app.database();
