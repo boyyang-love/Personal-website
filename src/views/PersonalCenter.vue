@@ -65,7 +65,7 @@
           <div class="del iconfont icon-nb-" @click="del(item._id)"></div>
           <div class="head">
             <div class="head_img">
-              <img :src="userMes.userImg" alt />
+              <img :src="userMes.avatarUrl" alt />
             </div>
             <div class="head_name">{{ item.nickname }}</div>
             <div class="head_time">{{ item.time }}</div>

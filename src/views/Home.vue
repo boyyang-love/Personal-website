@@ -22,12 +22,7 @@
     </div>
     <div class="other">
       <div class="blog">
-        <a
-          href="https://www.cnblogs.com/boyyangD/"
-          target="_blank"
-          rel="noopener noreferrer"
-          >我的博客</a
-        >
+        <a href="https://www.cnblogs.com/boyyangD/" target="_blank" rel="noopener noreferrer">我的博客</a>
       </div>
       <div class="github">
         <a
@@ -35,8 +30,7 @@
           target="_blank"
           rel="noopener noreferrer"
           class="iconfont icon-github"
-          >GitHub</a
-        >
+        >GitHub</a>
       </div>
     </div>
   </div>
@@ -50,11 +44,11 @@ export default {
   components: {},
   setup() {
     const state = reactive({
-      isShow: true,
+      isShow: true
     });
     const router = useRouter();
 
-    let routeJumb = (path) => {
+    let routeJumb = path => {
       router.push(path);
     };
 
@@ -65,9 +59,9 @@ export default {
     return {
       ...toRefs(state),
       routeJumb,
-      hiddenNav,
+      hiddenNav
     };
-  },
+  }
 };
 </script>
 
@@ -159,6 +153,7 @@ export default {
     @center();
     flex-direction: column;
     @media screen and(max-width: 600px) {
+      height: 25%;
       width: 100%;
       bottom: 0;
     }
@@ -172,9 +167,12 @@ export default {
       cursor: pointer;
       @center();
       a {
-        font-size: 25px;
+        font-size: 18px;
         margin: 3px;
         text-decoration: none;
+        @media screen and(max-width: 600px) {
+          font-size: 16px;
+        }
       }
       &:hover {
         background-color: rgb(48, 129, 84);
