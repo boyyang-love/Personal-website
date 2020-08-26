@@ -191,7 +191,10 @@ function () {
               }).then(function () {
                 _this4.state.loadingText = "数据提交成功";
                 _this4.state.isLoading = false;
-                return;
+                var user = _this4.auth.currentUser;
+                user.update({
+                  nickName: _this4.state.userMes.nickname
+                });
               })["catch"](function (err) {
                 _this4.state.loadingText = "数据提交失败";
                 _this4.state.isLoading = false;
@@ -244,6 +247,7 @@ function () {
                     maxAge: 120 * 60 * 10000
                   }]
                 }).then(function (res) {
+                  var avatarurl = res.fileList[0].tempFileURL;
                   db.collection('register').where({
                     uid: _this5.state.id
                   }).update({
@@ -254,6 +258,10 @@ function () {
                     _this5.state.loadingText = "头像更改成功，请刷新页面";
                     _this5.state.isLoading = false;
                     _this5.state.isChangeImg = false;
+                    var user = _this5.auth.currentUser;
+                    user.update({
+                      avatarUrl: avatarurl
+                    });
                   });
                 });
               });

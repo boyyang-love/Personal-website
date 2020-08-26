@@ -14,7 +14,8 @@ exports.main = async (event, context) => {
                 nickname: event.nickname,
                 email: event.email,
                 comments: event.comment,
-                commentTime: event.commentTime
+                commentTime: event.commentTime,
+                uid: event.uid
             })
         })
         .then((res) => {

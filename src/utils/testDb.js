@@ -125,7 +125,10 @@ class Database {
             }).then(() => {
                 this.state.loadingText = "数据提交成功"
                 this.state.isLoading = false
-                return
+                const user = this.auth.currentUser
+                user.update({
+                    nickName: this.state.userMes.nickname
+                })
             }).catch((err) => {
                 this.state.loadingText = "数据提交失败"
                 this.state.isLoading = false
@@ -151,6 +154,7 @@ class Database {
                         maxAge: 120 * 60 * 10000
                     }]
                 }).then((res) => {
+                    const avatarurl = res.fileList[0].tempFileURL
                     db.collection('register').where({
                         uid: this.state.id
                     }).update({
@@ -160,6 +164,10 @@ class Database {
                         this.state.loadingText = "头像更改成功，请刷新页面"
                         this.state.isLoading = false
                         this.state.isChangeImg = false
+                        const user = this.auth.currentUser
+                        user.update({
+                            avatarUrl: avatarurl
+                        })
                     })
                 })
             })

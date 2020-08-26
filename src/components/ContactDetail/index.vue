@@ -30,7 +30,7 @@
           <div class="commentText">{{ item.commentText }}</div>
           <div class="reback">
             <span @click="rebackComment(item._id)">回复</span>
-            <span v-show="item.email == email" @click="delComment(item._id)">删除</span>
+            <span v-show="item.uid == uid" @click="delComment(item._id)">删除</span>
           </div>
           <!-- 其它评论 -->
           <div class="otherComment" v-for="(comment, i) in item.otherPersonComments" :key="i">
@@ -42,7 +42,7 @@
             <div class="otherComments">{{ comment.comments }}</div>
             <div class="otherCommentsDel">
               <span
-                v-show="comment.email == email"
+                v-show="comment.uid == uid"
                 class="iconfont icon-cuowu11"
                 @click="delMineComment(i, item._id)"
               ></span>
@@ -90,17 +90,17 @@
       </div>
       <div class="input-box">
         <div class="nickname">
-          昵称:
-          <input type="text" name="nickname" v-model="nickname" placeholder="2~8位" />
-          <i
-            class="iconfont icon-tuichu2"
-            :style="{ color: Reg_nickname.test(nickname) ? '' : 'red' }"
-          ></i>
+          邮箱:
+          <input type="text" name="email" v-model="email" placeholder="注册时邮箱" />
+          <i class="iconfont icon-tuichu2" :style="{ color: Reg_email.test(email) ? '' : 'red' }"></i>
         </div>
         <div class="email">
-          邮箱:
-          <input type="email" name="email" v-model="email" placeholder="xxxx@xxx.com" />
-          <i class="iconfont icon-tuichu2" :style="{ color: Reg_email.test(email) ? '' : 'red' }"></i>
+          密码:
+          <input type="password" name="password" v-model="password" placeholder="邮箱密码" />
+          <i
+            class="iconfont icon-tuichu2"
+            :style="{ color: Reg_password.test(password) ? '' : 'red' }"
+          ></i>
         </div>
       </div>
       <div class="message-submit">
@@ -131,7 +131,7 @@
 <script>
 import Loading from "@/components/Loading";
 import { reactive, toRefs } from "vue";
-import cloudbase from "@cloudbase/js-sdk";
+import Db from "./Db";
 export default {
   name: "ContactDetail",
   components: {
@@ -144,61 +144,26 @@ export default {
       isLogin: false,
       isLoginBox: false,
       nickname: "",
-      email: "",
+      password: "yzhd45683968yzhd",
+      email: "1761617270@qq.com",
       commentDetail: [],
       isReback: false,
       rebackPersonName: "",
       rebackCommentText: "",
       rebackPersonId: "",
-      isLoading: false
+      isLoading: false,
+      uid: ""
     });
-    const app = cloudbase.init({
-      env: "personal-web-5gfvc908ac76abb1"
-    });
-    const auth = app.auth({ persistence: "local" });
-    auth
-      .anonymousAuthProvider()
-      .signIn()
-      .then(() => {
-        let users = localStorage.getItem("users");
-        if (users) {
-          state.nickname = JSON.parse(users).nickname;
-          state.email = JSON.parse(users).email;
-          state.isLogin = true;
-          state.beforeLogin = `谢谢你的留言${state.nickname}~~~~ `;
-        }
-        getComment();
-      })
-      .catch(err => {
-        console.log(err);
-        getComment();
-      });
-
-    const db = app.database();
-    const _ = db.command;
+    const db = new Db(state);
 
     // 昵称验证
-    var Reg_nickname = /^.{2,8}$/;
-    // 邮箱验证
     var Reg_email = /^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/;
+    // 邮箱验证
+    var Reg_password = /^.{6,18}$/;
     // 评论提交
     const submit = () => {
       if (state.commentText !== "") {
-        db.collection("comments")
-          .add({
-            nickname: state.nickname,
-            email: state.email,
-            commentText: state.commentText,
-            commentTime: new Date().toLocaleString(),
-            otherPersonComments: []
-          })
-          .then(() => {
-            state.commentText = "";
-            getComment();
-          })
-          .catch(err => {
-            console.log(err);
-          });
+        db.submitComment();
       } else {
         alert("评论不能为空");
       }
@@ -211,54 +176,17 @@ export default {
     const outlogin = () => {
       state.beforeLogin = "先登录哦！！";
       state.isLogin = false;
-      state.email = "";
-      localStorage.removeItem("users");
+      db.outlogin();
     };
     // 登录事件
     const logined = () => {
-      if (state.nickname !== "" && state.email !== "") {
+      if (state.email !== "" && state.password !== "") {
         // 昵称以及邮箱验证
-        if (Reg_nickname.test(state.nickname) && Reg_email.test(state.email)) {
-          state.beforeLogin = `谢谢你的留言:${state.nickname}~~~~ `;
-          state.isLoginBox = false;
-          state.isLogin = true;
-          // 将数据传进数据库
-          db.collection("users")
-            .where({ email: state.email })
-            .get()
-            .then(res => {
-              if (res.data.length !== 0) {
-                localStorage.setItem(
-                  "users",
-                  JSON.stringify({
-                    nickname: state.nickname,
-                    email: state.email
-                  })
-                );
-              } else {
-                db.collection("users")
-                  .add({
-                    nickname: state.nickname,
-                    email: state.email,
-                    signInTime: new Date().toLocaleString()
-                  })
-                  .then(() => {
-                    console.log("注册成功！！");
-                    localStorage.setItem(
-                      "users",
-                      JSON.stringify({
-                        nickname: state.nickname,
-                        email: state.email
-                      })
-                    );
-                  });
-              }
-            })
-            .catch(err => {
-              console.log(err);
-            });
+        if (Reg_email.test(state.email) && Reg_password.test(state.password)) {
+          state.isLoading = true;
+          db.signUp();
         } else {
-          alert("请正确填写昵称以及邮箱");
+          alert("请正确填写");
         }
       } else {
         alert("输入不能为空");
@@ -269,50 +197,15 @@ export default {
       // console.log(_id);
       let r = confirm("是否删除该条评论");
       if (r == true) {
-        state.isLoading = true;
-        app
-          .callFunction({
-            name: "delComment",
-            data: {
-              _id
-            }
-          })
-          .then(() => {
-            // console.log(res);
-            getComment();
-          });
-        // db.collection("comments")
-        //   .doc(_id)
-        //   .remove()
-        //   .then(res => {
-        //     console.log(res);
-        //     getComment();
-        //   })
-        //   .catch(err => {
-        //     console.log(err);
-        //   });
+        db.delComment(_id);
       } else {
         return;
       }
     };
     // 回复评论事件
     const rebackComment = async _id => {
-      if (state.isLogin == false) {
-        alert("登录后才可以评论哦!!");
-        state.isLoginBox = true;
-      } else {
-        state.isReback = true;
-        state.rebackPersonId = _id;
-        db.collection("comments")
-          .doc(_id)
-          .get()
-          .then(res => {
-            state.rebackPersonName = res.data[0].nickname;
-          })
-          .catch(err => {
-            console.log(err);
-          });
-      }
+      // console.log(_id);
+      db.rebackComment(_id);
     };
     // 退出回复界面
     const exitComment = () => {
@@ -320,69 +213,12 @@ export default {
     };
     // 回复确定事件
     const sureComment = () => {
-      if (state.rebackCommentText == "") {
-        alert("回复不能为空!!");
-      } else {
-        state.isLoading = true;
-        app
-          .callFunction({
-            name: "reback-comment",
-            data: {
-              rebackPersonId: state.rebackPersonId,
-              nickname: state.nickname,
-              email: state.email,
-              comment: state.rebackCommentText,
-              commentTime: new Date().toLocaleString()
-            }
-          })
-          .then(res => {
-            console.log(res);
-            state.isReback = false;
-            getComment();
-          });
-      }
+      db.sureComment();
     };
     // 删除自己的子评论
     const delMineComment = (i, _id) => {
       // console.log(i, _id);
-      state.isLoading = true;
-      db.collection("comments")
-        .doc(_id)
-        .get()
-        .then(async res => {
-          let result = await res.data[0].otherPersonComments;
-          result.splice(i, 1);
-          app
-            .callFunction({
-              name: "delMineComment",
-              data: {
-                _id: _id,
-                otherPersonComments: result
-              }
-            })
-            .then(res => {
-              console.log(res);
-              getComment();
-            });
-        })
-        .catch(err => {
-          console.log(err);
-        });
-    };
-    // 获取评论数据
-    const getComment = () => {
-      db.collection("comments")
-        .where({
-          commentText: _.neq("")
-        })
-        .get()
-        .then(res => {
-          state.commentDetail = res.data.reverse();
-          state.isLoading = false;
-        })
-        .catch(err => {
-          console.log(err);
-        });
+      db.delMineComment(i, _id);
     };
 
     return {
@@ -391,8 +227,8 @@ export default {
       login,
       logined,
       outlogin,
-      Reg_nickname,
       Reg_email,
+      Reg_password,
       delComment,
       rebackComment,
       exitComment,
