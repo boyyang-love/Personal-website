@@ -3,7 +3,6 @@ import Database from "@/utils/testDb.js";
 class Login {
     constructor(state) {
         this.state = state;
-        // this.router = router
         this.database = new Database(this.state)
     }
     // 注册

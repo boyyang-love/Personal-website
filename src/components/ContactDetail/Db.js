@@ -67,7 +67,8 @@ class Db {
                 commentText: _.neq("")
             })
             .get()
-            .then(res => {
+            .then((res) => {
+                console.log(res)
                 this.state.commentDetail = res.data.reverse();
                 this.state.isLoading = false;
             })

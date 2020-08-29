@@ -38,10 +38,15 @@
             <i class="iconfont icon-zhongxindongtai" @click="addNews = !addNews"></i>
             <span>动态</span>
           </div>
-          <div class="card2"></div>
+          <div class="card2">
+            <span>其它</span>
+            <i class="iconfont icon-tubiaosvg-" @click="$router.push('/wechatMonents')"></i>
+            <span>动态</span>
+          </div>
         </div>
         <!-- alert box -->
         <div class="alertBox animated slideInDown" v-show="isShowChangeBox">
+          <div class="exitLogin" @click="exitLogin">退出登录</div>
           <div class="changeNickname">
             <span>昵称:</span>
             <input type="text" v-model="userMes.nickname" />
@@ -179,6 +184,10 @@ export default {
       database.delNews(_id);
     };
 
+    const exitLogin = () => {
+      database.exitLogin();
+    };
+
     return {
       ...toRefs(state),
       uploadImg,
@@ -186,7 +195,8 @@ export default {
       submitNews,
       changeStyle,
       rebackStyle,
-      del
+      del,
+      exitLogin
     };
   }
 };
@@ -364,7 +374,8 @@ export default {
           box-shadow: 1px 2px 2px 1px rgba(0, 0, 0, 0.6);
           border-radius: 10px;
         }
-        .card1 {
+        .card1,
+        .card2 {
           @center();
           .iconfont {
             font-size: 35px;
@@ -387,6 +398,17 @@ export default {
         border-radius: 0 0 10px 10px;
         @center();
         flex-direction: column;
+        .exitLogin {
+          position: absolute;
+          top: 0;
+          right: 0;
+          margin: 10px;
+          color: white;
+          cursor: pointer;
+          &:hover {
+            color: red;
+          }
+        }
         .changeNickname,
         .changeMotto,
         .changeQQ {

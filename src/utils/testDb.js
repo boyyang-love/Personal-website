@@ -12,9 +12,39 @@ class Database {
         this.auth = this.app.auth({
             persistence: 'local'
         })
+        this.isRefreshLogin()
     }
 
-
+    //  判断登录状态，用户登录有效则跳过登录，
+    async isRefreshLogin() {
+        this.auth
+            .getLoginState()
+            .then((loginstate) => {
+                if (loginstate) {
+                    const user = this.auth.currentUser
+                    this.router.push({
+                        name: 'PersonalCenter',
+                        params: {
+                            id: user.uid
+                        }
+                    })
+                } else {
+                    return
+                }
+            })
+    }
+    // 退出登录
+    async exitLogin() {
+        this.auth.getLoginState()
+            .then((loginstate) => {
+                if (loginstate) {
+                    this.auth.signOut()
+                    this.router.push('/')
+                } else {
+                    return
+                }
+            })
+    }
     // 注册逻辑  
     async addUsers() {
         this.state.isLoading = true
@@ -82,7 +112,6 @@ class Database {
                                 })
                         }
                     })
-
 
             })
             .catch((err) => {

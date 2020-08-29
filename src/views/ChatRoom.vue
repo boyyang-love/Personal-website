@@ -3,39 +3,34 @@
     <div class="header">
       <div class="iconfont icon-fanhui1" @click="$router.back(1)"></div>
     </div>
-    <!-- <div class="content">
-      <div class="shows">
-        <img src="../assets/img/photo3.jpg" alt />
-        <a
-          href="http://boyyanglove.gitee.io/web-music/#/findMusic"
-          target="_blank"
-          rel="noopener noreferrer"
-        >web在线音乐</a>
-      </div>
-      <div class="shows">
-        <img src="../assets/img/不知火.jpg" alt />
-        <a
-          href="http://boyyanglove.gitee.io/todolist/#/"
-          target="_blank"
-          rel="noopener noreferrer"
-        >Todolist</a>
-      </div>
-      <div class="shows">
-        <img src="../assets/img/boyyang.jpg" alt />
-        <a
-          href="http://boyyanglove.gitee.io/vue3.0study/#/music"
-          target="_blank"
-          rel="noopener noreferrer"
-        >音乐</a>
-      </div>
-    </div>-->
-    <div class="content"></div>
+    <div class="content">
+      <h1>功能还在完善中------</h1>
+    </div>
   </div>
 </template>
 
 <script>
 export default {
-  name: "MyShows"
+  name: "ChatRoom",
+  setup() {
+    var ws = new WebSocket("ws://localhost:3000");
+
+    ws.onopen = function(evt) {
+      console.log(evt);
+      console.log("Connection open ...");
+      ws.send("Hello WebSockets!");
+    };
+
+    ws.onmessage = function(evt) {
+      console.log("Received Message: " + evt.data);
+      ws.close();
+    };
+
+    ws.onclose = function(evt) {
+      console.log("Connection closed.");
+      console.log(evt);
+    };
+  }
 };
 </script>
 

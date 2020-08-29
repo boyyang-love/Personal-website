@@ -289,8 +289,8 @@ export default {
       color: white;
     }
     .textarea {
-      width: 75%;
-      height: 200px;
+      width: 70%;
+      height: 300px;
       background-color: #fff;
       border-radius: 10px;
       display: flex;
@@ -325,8 +325,8 @@ export default {
         }
       }
       textarea {
-        width: 95%;
-        height: 100px;
+        width: 90%;
+        height: 170px;
         border: 1px solid pink;
         outline-color: #edd1d8;
       }
@@ -354,6 +354,7 @@ export default {
         width: 45px;
         height: 40px;
         border-radius: 100%;
+        overflow: hidden;
         background-color: rgb(216, 114, 114);
         @center();
       }
@@ -463,8 +464,8 @@ export default {
   background: rgba(0, 0, 0, 0.6);
   @center();
   .logBox {
-    width: 55%;
-    height: 85%;
+    width: 45%;
+    height: 90%;
     background-color: #a4e2c6;
     box-shadow: 0 3px 4px 0 rgba(0, 0, 0, 0.6);
     border-radius: 10px;
@@ -616,7 +617,12 @@ export default {
         }
       }
       .textarea {
+        height: 200px;
         width: 100%;
+        textarea {
+          width: 85%;
+          height: 60%;
+        }
       }
       .submit {
         width: 45%;

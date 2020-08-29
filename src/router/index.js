@@ -49,6 +49,16 @@ const routes = [{
       name: 'PersonalCenter',
       component: () => import( /* webpackChunkName: "personalcenter" */ "@/views/PersonalCenter")
     }]
+  },
+  {
+    path: '/chatRoom',
+    name: "ChatRoom",
+    component: () => import( /* webpackChunkName: "chatroom" */ "@/views/ChatRoom")
+  },
+  {
+    path: '/wechatMonents',
+    name: "WechatMonents",
+    component: () => import( /* webpackChunkName: "wechatmonents" */ "@/views/WechatMonents")
   }
 ];
 

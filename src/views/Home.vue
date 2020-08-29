@@ -32,6 +32,7 @@
           class="iconfont icon-github"
         >GitHub</a>
       </div>
+      <div class="chatRoom" @click="routeJumb('chatRoom')">聊天室</div>
     </div>
   </div>
 </template>

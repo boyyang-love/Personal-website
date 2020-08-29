@@ -126,6 +126,7 @@ function () {
               db.collection("comments").where({
                 commentText: _.neq("")
               }).get().then(function (res) {
+                console.log(res);
                 _this3.state.commentDetail = res.data.reverse();
                 _this3.state.isLoading = false;
               });

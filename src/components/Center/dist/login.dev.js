@@ -22,8 +22,7 @@ function () {
   function Login(state) {
     _classCallCheck(this, Login);
 
-    this.state = state; // this.router = router
-
+    this.state = state;
     this.database = new _testDb["default"](this.state);
   } // 注册
 
