@@ -47,6 +47,17 @@ function () {
         }
       });
     }
+  }, {
+    key: "download",
+    value: function download(id) {
+      this.app.downloadFile({
+        fileID: id
+      }).then(function (res) {
+        console.log(res);
+      })["catch"](function (err) {
+        console.log(err);
+      });
+    }
   }]);
 
   return WechatMonents;

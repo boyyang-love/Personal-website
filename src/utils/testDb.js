@@ -211,11 +211,12 @@ class Database {
             this.state.loadingText = '动态上传中'
             if (!file) {
                 this.state.isLoading = true
+                const user = this.auth.currentUser
                 db.collection('center').add({
                     ID: id,
                     text: text,
                     img: "",
-                    nickname: this.state.userMes.nickname,
+                    nickname: user.nickName,
                     time: new Date().toLocaleString()
 
                 }).then(() => {
@@ -232,6 +233,7 @@ class Database {
                     cloudPath: `${id}/center/${file.name}`,
                     filePath: file
                 }).then((res) => {
+                    let DownloadId = res.fileID
                     this.app.getTempFileURL({
                         fileList: [{
                             fileID: res.fileID,
@@ -244,7 +246,8 @@ class Database {
                             text: text,
                             img: res.fileList[0].tempFileURL,
                             nickname: this.state.userMes.nickname,
-                            time: new Date().toLocaleString()
+                            time: new Date().toLocaleString(),
+                            DownloadId: DownloadId
 
                         }).then(() => {
                             this.state.loadingText = "动态发布成功"

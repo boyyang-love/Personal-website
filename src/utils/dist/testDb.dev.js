@@ -339,7 +339,7 @@ function () {
     value: function submitNews(id, text, file) {
       var _this8 = this;
 
-      var db;
+      var db, user;
       return regeneratorRuntime.async(function submitNews$(_context8) {
         while (1) {
           switch (_context8.prev = _context8.next) {
@@ -357,11 +357,12 @@ function () {
 
                 if (!file) {
                   this.state.isLoading = true;
+                  user = this.auth.currentUser;
                   db.collection('center').add({
                     ID: id,
                     text: text,
                     img: "",
-                    nickname: this.state.userMes.nickname,
+                    nickname: user.nickName,
                     time: new Date().toLocaleString()
                   }).then(function () {
                     _this8.state.loadingText = "发布动态成功";
@@ -378,6 +379,8 @@ function () {
                     cloudPath: "".concat(id, "/center/").concat(file.name),
                     filePath: file
                   }).then(function (res) {
+                    var DownloadId = res.fileID;
+
                     _this8.app.getTempFileURL({
                       fileList: [{
                         fileID: res.fileID,
@@ -390,7 +393,8 @@ function () {
                         text: text,
                         img: res.fileList[0].tempFileURL,
                         nickname: _this8.state.userMes.nickname,
-                        time: new Date().toLocaleString()
+                        time: new Date().toLocaleString(),
+                        DownloadId: DownloadId
                       }).then(function () {
                         _this8.state.loadingText = "动态发布成功";
                         _this8.state.isLoading = false;

@@ -4,7 +4,7 @@
       <i class="iconfont icon-tuichu_huaban1" @click="$router.back(1)"></i>
     </div>
     <div class="content">
-      <div class="shows" v-for="(item) in news" :key="item._id">
+      <div class="shows" v-for="(item) in news" :key="item._id" v-show="item.img">
         <div class="header">
           <span>{{item.nickname}}</span>
           <span>{{item.time}}</span>
@@ -14,6 +14,9 @@
           <div class="img">
             <img :src="item.img" alt />
           </div>
+        </div>
+        <div class="download">
+          <i class="iconfont icon-xiazai11" @click="download(item.DownloadId)"></i>
         </div>
       </div>
     </div>
@@ -35,8 +38,13 @@ export default {
       wm.getAllNews();
     });
 
+    const download = id => {
+      wm.download(id);
+    };
+
     return {
-      ...toRefs(state)
+      ...toRefs(state),
+      download
     };
   }
 };
@@ -84,13 +92,23 @@ export default {
       background-color: #fff;
       border-radius: 15px;
       box-shadow: 1px 2px 3px 0 rgba(0, 0, 0, 0.5);
+      position: relative;
+      @media screen and(max-width: 600px) {
+        width: 100%;
+      }
       .header {
         width: 100%;
         height: 45px;
         @center();
         margin: 25px 0;
+        @media screen and(max-width: 600px) {
+          margin: 10px 0;
+        }
         span {
           margin: 0 45px;
+          @media screen and(max-width: 600px) {
+            margin: 0 10px;
+          }
         }
       }
       .text_img {
@@ -108,6 +126,21 @@ export default {
           @center();
           img {
             width: 75%;
+          }
+        }
+      }
+      .download {
+        position: absolute;
+        right: 10px;
+        bottom: 15px;
+        .iconfont {
+          font-size: 34px;
+          cursor: pointer;
+          @media screen and(max-width: 600px) {
+            font-size: 24;
+          }
+          &:hover {
+            color: red;
           }
         }
       }
