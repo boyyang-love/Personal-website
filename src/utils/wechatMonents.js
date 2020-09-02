@@ -9,7 +9,7 @@ class WechatMonents {
             persistence: 'local'
         })
     }
-
+    // 获取所有动态消息 
     getAllNews() {
         this.auth
             .getLoginState()
@@ -26,6 +26,7 @@ class WechatMonents {
                 }
             })
     }
+    // 图片下载
     download(id) {
         this.app.downloadFile({
             fileID: id

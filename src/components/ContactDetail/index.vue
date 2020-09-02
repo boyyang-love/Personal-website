@@ -258,7 +258,6 @@ export default {
   width: 100%;
   height: 100%;
   display: flex;
-  // justify-content: center;
   align-items: center;
   flex-direction: column;
   overflow-y: scroll;
@@ -276,6 +275,7 @@ export default {
       width: 150px;
       height: 150px;
       border-radius: 100%;
+      margin-top: 30px;
       @center();
       border-radius: 100%;
       overflow: hidden;

@@ -20,6 +20,7 @@ export default {
 <style scoped lang="less">
 .contact {
   width: 100%;
+  height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -33,11 +34,11 @@ export default {
     }
   }
   .content {
-    width: 100%;
-    height: 550px;
+    width: 98vw;
+    height: 90vh;
     background: rgba(0, 0, 0, 0.5);
     // border: 1px solid white;
-    // border-radius: 10px;
+    border-radius: 10px;
     box-shadow: 0 2px 3px 0px rgba(0, 0, 0, 0.5);
     display: flex;
     justify-content: center;

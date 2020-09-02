@@ -16,6 +16,7 @@ export default {
   padding: 0;
   list-style: none;
 }
+
 #app {
   width: 100%;
   height: 100%;
@@ -29,7 +30,7 @@ export default {
 @media screen and(max-width: 600px) {
   #app {
     width: 100%;
-    height: 660px;
+    min-height: 100%;
     background-position-x: 525px;
     background-size: cover;
     align-items: flex-start;

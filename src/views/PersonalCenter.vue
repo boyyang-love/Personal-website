@@ -226,7 +226,7 @@ export default {
 .personalcenter {
   z-index: 30;
   width: 100%;
-  height: 100%;
+  height: 100vh;
   position: absolute;
   left: 0;
   top: 0;

@@ -34,15 +34,21 @@
       </div>
       <div class="chatRoom" @click="routeJumb('chatRoom')">聊天室</div>
     </div>
+    <div class="constellation">
+      <Constellation />
+    </div>
   </div>
 </template>
 
 <script>
+import Constellation from "@/components/Constellation";
 import { reactive, toRefs } from "vue";
 import { useRouter } from "vue-router";
 export default {
   name: "Home",
-  components: {},
+  components: {
+    Constellation
+  },
   setup() {
     const state = reactive({
       isShow: true
@@ -82,7 +88,7 @@ export default {
 };
 .home {
   width: 100%;
-  height: 600px;
+  min-height: 100vh;
   display: flex;
   justify-content: flex-start;
   align-items: center;
@@ -148,7 +154,7 @@ export default {
   .other {
     position: absolute;
     bottom: 0;
-    left: 0;
+    right: 0;
     width: 25%;
     height: 40%;
     @center();
@@ -179,6 +185,15 @@ export default {
         background-color: rgb(48, 129, 84);
       }
     }
+  }
+  .constellation {
+    width: 40%;
+    height: 55%;
+    position: absolute;
+    left: 15px;
+    bottom: 25px;
+    border-radius: 5px;
+    box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.6);
   }
 }
 </style>

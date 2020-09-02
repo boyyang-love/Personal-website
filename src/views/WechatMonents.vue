@@ -63,7 +63,7 @@ export default {
 };
 .wechatmonents {
   width: 100%;
-  height: 600px;
+  height: 100vh;
   .exit {
     width: 100%;
     height: 10%;

@@ -20,7 +20,7 @@ export default {
 <style scoped lang="less">
 .about {
   width: 100%;
-  height: 550px;
+  height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -35,8 +35,8 @@ export default {
     }
   }
   .content {
-    width: 100%;
-    height: 100%;
+    width: 98vw;
+    height: 90vh;
     background: rgba(0, 0, 0, 0.5);
     border: 1px solid white;
     border-radius: 10px;

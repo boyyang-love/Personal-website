@@ -77,7 +77,7 @@ export default {
   setup() {
     const state = reactive({
       isLogined: true,
-      nickname: "",
+      nickname: "boyyang",
       email: "1761617270@qq.com",
       password: "yzhd45683968yzhd",
       repassword: "yzhd45683968yzhd",
@@ -128,12 +128,8 @@ export default {
   align-items: center;
 };
 .center {
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: 20;
   width: 100%;
-  height: 610px;
+  height: 100vh;
   background-color: #fff;
   background-image: url("../../assets/img/2.jpg");
   background-size: cover;
@@ -141,7 +137,7 @@ export default {
   background-repeat: no-repeat;
   @media screen and(max-width: 600px) {
     width: 100%;
-    height: 670px;
+    max-height: 100vh;
   }
   .header {
     width: 100%;
@@ -160,11 +156,12 @@ export default {
   }
   .content {
     width: 100%;
+    height: calc(100% - 75px);
     @center();
     .login,
     .signIn {
       width: 45%;
-      height: 450px;
+      height: 75%;
       margin-top: 25px;
       box-sizing: border-box;
       border-radius: 10px;

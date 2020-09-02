@@ -4,15 +4,28 @@
       <div class="iconfont icon-fanhui1" @click="$router.back(1)"></div>
     </div>
     <div class="content">
-      <h1>功能还在完善中------</h1>
+      <div class="box"></div>
     </div>
   </div>
 </template>
 
 <script>
+import { reactive, ref, toRefs } from "vue";
 export default {
   name: "ChatRoom",
   setup() {
+    const state = reactive({
+      myf: ref(null),
+      imgurl: [
+        require("../assets/img/mafia动漫5k壁纸_彼岸图网.jpg"),
+        require("../assets/img/photo3.jpg")
+      ]
+    });
+
+    return {
+      ...toRefs(state)
+    };
+
     // var ws = new WebSocket("ws://localhost:3000");
     // ws.onopen = function(evt) {
     //   console.log(evt);
@@ -74,8 +87,21 @@ export default {
   }
   .content {
     width: 100%;
-    position: relative;
+    height: 580px;
+    background-color: black;
     @center();
+    .box {
+      width: 50%;
+      height: 70%;
+      background-color: #fff;
+      perspective: 800;
+      .img {
+        width: 100%;
+        height: 100%;
+        transform-style: preserve-3d;
+        position: relative;
+      }
+    }
   }
 }
 
