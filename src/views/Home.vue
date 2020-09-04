@@ -1,5 +1,8 @@
 <template>
   <div class="home">
+    <div class="loading" v-show="isLoading">
+      <Loading />
+    </div>
     <div class="exit iconfont icon-icon1" @click="hiddenNav"></div>
     <div class="nav" v-show="isShow">
       <ul>
@@ -34,39 +37,72 @@
       </div>
       <div class="chatRoom" @click="routeJumb('chatRoom')">聊天室</div>
     </div>
-    <div class="constellation">
-      <Constellation />
+    <div class="changeBg">
+      <i class="iconfont icon-shezhi3" @click="changeBg"></i>
+    </div>
+    <div class="alert" v-show="isAlert">
+      <div class="alert_title">更改背景图片</div>
+      <div class="alert_icon">
+        <i class="iconfont icon-tianjia"></i>
+        <input type="file" ref="file" />
+      </div>
+      <div class="alert_btn">
+        <div class="btnExit" @click="isAlert = flase">取消</div>
+        <div class="btnSure" @click="submitFile">确定</div>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
-import Constellation from "@/components/Constellation";
-import { reactive, toRefs } from "vue";
+import Loading from "@/components/Loading";
+import { reactive, toRefs, ref } from "vue";
 import { useRouter } from "vue-router";
+import ChangBg from "@/utils/changeBg.js";
 export default {
   name: "Home",
   components: {
-    Constellation
+    Loading
   },
   setup() {
     const state = reactive({
-      isShow: true
+      isShow: true,
+      isAlert: false,
+      isLoading: false,
+      file: ref(null),
+      bg: [require("../assets/img/犬夜叉桔梗4k动漫壁纸3840x2160_彼岸图网.jpg")]
     });
     const router = useRouter();
+    const CB = new ChangBg(state);
 
+    // 路由跳转
     let routeJumb = path => {
       router.push(path);
     };
-
+    // 隐藏菜单栏
     const hiddenNav = () => {
       state.isShow = !state.isShow;
+    };
+
+    const changeBg = () => {
+      CB.userChangeBg();
+    };
+
+    // 提交图片
+    const submitFile = () => {
+      if (state.file.files[0] == undefined) {
+        alert("图片不能为空");
+      } else {
+        CB.submitBg(state.file.files[0]);
+      }
     };
 
     return {
       ...toRefs(state),
       routeJumb,
-      hiddenNav
+      hiddenNav,
+      changeBg,
+      submitFile
     };
   }
 };
@@ -97,6 +133,16 @@ export default {
   @media screen and(max-width: 600px) {
     height: 660px;
   }
+  .loading {
+    z-index: 4;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: rgba(133, 125, 115, 0.6);
+  }
+
   .exit {
     display: none;
     @media screen and(max-width: 600px) {
@@ -162,7 +208,7 @@ export default {
     @media screen and(max-width: 600px) {
       height: 25%;
       width: 100%;
-      bottom: 0;
+      bottom: 55px;
     }
     div {
       width: 45%;
@@ -186,14 +232,80 @@ export default {
       }
     }
   }
-  .constellation {
-    width: 40%;
-    height: 55%;
+  .changeBg {
     position: absolute;
-    left: 15px;
-    bottom: 25px;
-    border-radius: 5px;
+    bottom: 10px;
+    .iconfont {
+      font-size: 35px;
+      color: orange;
+      cursor: pointer;
+      &:hover {
+        color: red;
+      }
+    }
+  }
+  .alert {
+    position: absolute;
+    bottom: 75px;
+    width: 400px;
+    height: 200px;
+    background-color: #fff;
     box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.6);
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    .alert_title {
+      width: 100%;
+      height: 20%;
+      background-color: rgb(12, 98, 168);
+      border-radius: 10px 10px 0 0;
+      @center();
+    }
+    .alert_icon {
+      width: 100%;
+      height: 50%;
+      position: relative;
+      @center();
+      .iconfont {
+        font-size: 40px;
+      }
+      input {
+        width: 40px;
+        height: 40px;
+        cursor: pointer;
+        overflow: hidden;
+        opacity: 0;
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        margin: auto;
+        z-index: 2;
+        &:hover + .iconfont {
+          color: red;
+        }
+      }
+    }
+    .alert_btn {
+      width: 100%;
+      height: 35%;
+      @center();
+      div {
+        width: 30%;
+        height: 65%;
+        background-color: rgb(77, 1, 1);
+        box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.6);
+        cursor: pointer;
+        margin: 0 10px;
+        color: white;
+        border-radius: 5px;
+        @center();
+        &:hover {
+          background-color: rgb(85, 165, 85);
+        }
+      }
+    }
   }
 }
 </style>

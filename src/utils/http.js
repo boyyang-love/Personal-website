@@ -4,9 +4,6 @@ class Http {
     constructor(state) {
         this.state = state
     }
-    init() {
-        console.log('ok')
-    }
     async get(url, params) {
         const res = await axios({
             method: 'get',

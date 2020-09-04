@@ -4,7 +4,7 @@
       <div class="iconfont icon-fanhui1" @click="$router.back(1)"></div>
     </div>
     <div class="content">
-      <div class="box"></div>
+      <div class="box">功能还在完善中---</div>
     </div>
   </div>
 </template>

@@ -16,15 +16,22 @@ export default {
   padding: 0;
   list-style: none;
 }
+@center: {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+};
 
 #app {
   width: 100%;
   height: 100%;
-  background-image: url("./assets/img/犬夜叉桔梗4k动漫壁纸3840x2160_彼岸图网.jpg");
+  min-height: 100vh;
+  // background-image: url("./assets/img/犬夜叉桔梗4k动漫壁纸3840x2160_彼岸图网.jpg");
   background-size: cover;
   display: flex;
   align-items: center;
   justify-content: center;
+  position: relative;
 }
 
 @media screen and(max-width: 600px) {
