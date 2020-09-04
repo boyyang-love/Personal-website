@@ -13,7 +13,7 @@ export default {
 };
 </script>
 
-<style scoped lang='less'>
+<style scoped lang="less">
 @center: {
   display: flex;
   justify-content: center;

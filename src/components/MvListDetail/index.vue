@@ -22,7 +22,7 @@ export default {
   setup() {
     const state = reactive({
       mvUrl: "",
-      id: "",
+      id: ""
     });
     const video = ref(null);
     const router = useRouter();
@@ -36,18 +36,18 @@ export default {
       ...toRefs(state),
       video,
       play,
-      stop,
+      stop
     };
-  },
+  }
 };
 // 获取mv播放地址
-const getMvUrl = async (id) => {
+const getMvUrl = async id => {
   let res = await axios({
     url: "https://autumnfish.cn/mv/url",
     method: "get",
     params: {
-      id,
-    },
+      id
+    }
   });
   if (res.status == 200) {
     console.log(res);
@@ -57,7 +57,7 @@ const getMvUrl = async (id) => {
   }
 };
 // 播放事件
-const PLAY = (video) => {
+const PLAY = video => {
   const play = () => {
     video.value.pause();
   };
@@ -67,7 +67,7 @@ const PLAY = (video) => {
 
   return {
     play,
-    stop,
+    stop
   };
 };
 </script>

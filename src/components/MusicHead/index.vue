@@ -2,9 +2,21 @@
   <div class="musichead">
     <div class="content">
       <ul>
-        <li :class="{ active: flog == '推荐歌单' }" @click="tabChange('推荐歌单')">推荐歌单</li>
-        <li :class="{ active: flog == '推荐MV' }" @click="tabChange('推荐MV')">推荐MV</li>
-        <li :class="{ active: flog == '推荐单曲' }" @click="tabChange('推荐单曲')">推荐单曲</li>
+        <li
+          :class="{ active: flog == '推荐歌单' }"
+          @click="tabChange('推荐歌单')"
+        >
+          推荐歌单
+        </li>
+        <li :class="{ active: flog == '推荐MV' }" @click="tabChange('推荐MV')">
+          推荐MV
+        </li>
+        <li
+          :class="{ active: flog == '推荐单曲' }"
+          @click="tabChange('推荐单曲')"
+        >
+          推荐单曲
+        </li>
       </ul>
     </div>
     <div class="recomment" v-show="flog == '推荐歌单'">

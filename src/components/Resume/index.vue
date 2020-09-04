@@ -25,7 +25,8 @@
             target="_blank"
             rel="noopener noreferrer"
             style="color: #e9e7ef"
-          >https://github.com/boyyang-love</a>
+            >https://github.com/boyyang-love</a
+          >
         </div>
         <div class="gitee">
           Gitee:
@@ -34,7 +35,8 @@
             target="_blank"
             rel="noopener noreferrer"
             style="color: #e9e7ef"
-          >https://gitee.com/boyyanglove</a>
+            >https://gitee.com/boyyanglove</a
+          >
         </div>
       </div>
       <div class="skills">
@@ -51,24 +53,32 @@
             href="http://boyyanglove.gitee.io/web-music/#/findMusic"
             target="_blank"
             rel="noopener noreferrer"
-          >web在线音乐</a>
+            >web在线音乐</a
+          >
         </div>
         <div class="sh2">
           <a
             href="http://boyyanglove.gitee.io/vue3.0study/#/"
             target="_blank"
             rel="noopener noreferrer"
-          >music</a>
+            >music</a
+          >
         </div>
         <div class="sh3">
           <a
             href="http://boyyanglove.gitee.io/todolist/#/"
             target="_blank"
             rel="noopener noreferrer"
-          >ToDolist</a>
+            >ToDolist</a
+          >
         </div>
         <div class="sh4">
-          <a href="https://www.cnblogs.com/boyyangD/" target="_blank" rel="noopener noreferrer">个人博客</a>
+          <a
+            href="https://www.cnblogs.com/boyyangD/"
+            target="_blank"
+            rel="noopener noreferrer"
+            >个人博客</a
+          >
         </div>
       </div>
     </div>

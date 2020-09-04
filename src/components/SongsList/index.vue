@@ -5,7 +5,7 @@
         <img :src="item.picUrl" alt />
         <div class="iconfont icon-bofang1" @click="play(item.id)"></div>
         <div class="mes">
-          <h5>{{item.name}}</h5>
+          <h5>{{ item.name }}</h5>
         </div>
       </div>
       <div class="player">
@@ -55,7 +55,7 @@ export default {
 };
 </script>
 
-<style scoped lang='less'>
+<style scoped lang="less">
 .Song {
   width: 100%;
   .content {

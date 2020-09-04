@@ -5,8 +5,8 @@
       <div class="head">
         <img :src="songs.coverImgUrl" alt />
         <div class="des">
-          <div class="name">{{songs.name}}</div>
-          <div class="description">{{songs.description}}</div>
+          <div class="name">{{ songs.name }}</div>
+          <div class="description">{{ songs.description }}</div>
         </div>
       </div>
       <div class="songs">
@@ -14,8 +14,8 @@
           <li v-for="(item, i) in songs.tracks" :key="i">
             <img :src="item.al.picUrl" alt />
             <i class="iconfont icon-icon-" @click="play(item.id, i)"></i>
-            <div class="name">{{item.name}}</div>
-            <div class="singer">{{item.ar[0].name}}</div>
+            <div class="name">{{ item.name }}</div>
+            <div class="singer">{{ item.ar[0].name }}</div>
           </li>
         </ul>
       </div>
@@ -173,7 +173,7 @@ const player = (audio, state) => {
 };
 </script>
 
-<style scoped lang='less'>
+<style scoped lang="less">
 .listdetail {
   width: 100%;
   height: 610px;

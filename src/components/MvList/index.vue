@@ -3,7 +3,7 @@
     <div class="content">
       <div class="mv" v-for="(item, i) in mvList" :key="i">
         <img :src="item.cover" alt />
-        <h5>{{item.name}}</h5>
+        <h5>{{ item.name }}</h5>
         <div class="iconfont icon-mv1" @click="mvPlay(item.id)"></div>
       </div>
     </div>

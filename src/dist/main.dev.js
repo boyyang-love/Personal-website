@@ -10,6 +10,11 @@ var _router = _interopRequireDefault(require("./router"));
 
 var _store = _interopRequireDefault(require("./store"));
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+function _interopRequireDefault(obj) {
+  return obj && obj.__esModule ? obj : { default: obj };
+}
 
-(0, _vue.createApp)(_App["default"]).use(_router["default"]).use(_store["default"]).mount("#app");
+(0, _vue.createApp)(_App["default"])
+  .use(_router["default"])
+  .use(_store["default"])
+  .mount("#app");

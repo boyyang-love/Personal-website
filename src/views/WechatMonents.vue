@@ -4,19 +4,22 @@
       <i class="iconfont icon-tuichu_huaban1" @click="$router.back(1)"></i>
     </div>
     <div class="content">
-      <div class="shows" v-for="(item) in news" :key="item._id" v-show="item.img">
+      <div class="shows" v-for="item in news" :key="item._id" v-show="item.img">
         <div class="header">
-          <span>{{item.nickname}}</span>
-          <span>{{item.time}}</span>
+          <span>{{ item.nickname }}</span>
+          <span>{{ item.time }}</span>
         </div>
         <div class="text_img">
-          <div class="text">{{item.text}}</div>
+          <div class="text">{{ item.text }}</div>
           <div class="img">
             <img :src="item.img" alt />
           </div>
         </div>
         <div class="download">
-          <i class="iconfont icon-xiazai11" @click="download(item.DownloadId)"></i>
+          <i
+            class="iconfont icon-xiazai11"
+            @click="download(item.DownloadId)"
+          ></i>
         </div>
       </div>
     </div>
@@ -50,7 +53,7 @@ export default {
 };
 </script>
 
-<style lang='less' scoped>
+<style lang="less" scoped>
 @center: {
   display: flex;
   justify-content: center;

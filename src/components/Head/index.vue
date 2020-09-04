@@ -2,19 +2,22 @@
   <div class="head">
     <div class="content">
       <ul>
-        <li @click="routeJumb('/')" :class="{active: name=='/'}">
+        <li @click="routeJumb('/')" :class="{ active: name == '/' }">
           <i class="iconfont icon-fangzilengjiao"></i>
         </li>
-        <li @click="routeJumb('music')" :class="{active: name=='music'}">
+        <li @click="routeJumb('music')" :class="{ active: name == 'music' }">
           <i class="iconfont icon-mmp"></i>
         </li>
-        <li @click="routeJumb('about')" :class="{active: name=='about'}">
+        <li @click="routeJumb('about')" :class="{ active: name == 'about' }">
           <i class="iconfont icon-bangzhuguanyuwomen"></i>
         </li>
-        <li @click="routeJumb('contact')" :class="{active: name=='contact'}">
+        <li
+          @click="routeJumb('contact')"
+          :class="{ active: name == 'contact' }"
+        >
           <i class="iconfont icon-planetspacefl"></i>
         </li>
-        <li @click="routeJumb('center')" :class="{active: name=='center'}">
+        <li @click="routeJumb('center')" :class="{ active: name == 'center' }">
           <i class="iconfont icon-gerenzhongxin"></i>
         </li>
       </ul>

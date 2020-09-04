@@ -25,7 +25,12 @@
     </div>
     <div class="other">
       <div class="blog">
-        <a href="https://www.cnblogs.com/boyyangD/" target="_blank" rel="noopener noreferrer">我的博客</a>
+        <a
+          href="https://www.cnblogs.com/boyyangD/"
+          target="_blank"
+          rel="noopener noreferrer"
+          >我的博客</a
+        >
       </div>
       <div class="github">
         <a
@@ -33,7 +38,8 @@
           target="_blank"
           rel="noopener noreferrer"
           class="iconfont icon-github"
-        >GitHub</a>
+          >GitHub</a
+        >
       </div>
       <div class="chatRoom" @click="routeJumb('chatRoom')">聊天室</div>
     </div>

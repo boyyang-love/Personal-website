@@ -2,71 +2,90 @@
   <div class="content" v-show="allMes != ''">
     <div class="title">
       星座运势
-      <span class="change" @click="isShowAlert = !isShowAlert">({{defauleName}})</span>
+      <span class="change" @click="isShowAlert = !isShowAlert"
+        >({{ defauleName }})</span
+      >
     </div>
     <div class="img">
       <img src="@/assets/img/黄昏星空.png" alt />
     </div>
     <div class="alert animated bounceInDown" v-show="isShowAlert">
       <ul>
-        <li v-for="(item,i) in list" :key="i" @click="change(i)">
+        <li v-for="(item, i) in list" :key="i" @click="change(i)">
           <i :class="item.iconfont"></i>
-          {{item.name}}
+          {{ item.name }}
         </li>
       </ul>
     </div>
     <div class="mes">
       <div class="timeBtn">
-        <div :class="{active: active=='today'}" @click="changeTime('today')">今日运势</div>
-        <div :class="{active: active=='tomorrow'}" @click="changeTime('tomorrow')">明日运势</div>
-        <div :class="{active: active=='week'}" @click="changeTime('week')">本周运势</div>
-        <div :class="{active: active=='month'}" @click="changeTime('month')">本月运势</div>
+        <div
+          :class="{ active: active == 'today' }"
+          @click="changeTime('today')"
+        >
+          今日运势
+        </div>
+        <div
+          :class="{ active: active == 'tomorrow' }"
+          @click="changeTime('tomorrow')"
+        >
+          明日运势
+        </div>
+        <div :class="{ active: active == 'week' }" @click="changeTime('week')">
+          本周运势
+        </div>
+        <div
+          :class="{ active: active == 'month' }"
+          @click="changeTime('month')"
+        >
+          本月运势
+        </div>
       </div>
       <div class="mesDetail">
-        <div class="today_detail" v-show="active=='today'">
+        <div class="today_detail" v-show="active == 'today'">
           <div class="point">
-            <div class="all">综合指数:{{allMes.all}}</div>
-            <div class="health">健康指数:{{allMes.health}}</div>
-            <div class="love">爱情指数:{{allMes.love}}</div>
-            <div class="money">财富指数:{{allMes.money}}</div>
-            <div class="number">幸运数字:{{allMes.number}}</div>
-            <div class="work">工作指数:{{allMes.work}}</div>
-            <div class="color">幸运颜色:{{allMes.color}}</div>
-            <div class="QFriend">速配星座:{{allMes.QFriend}}</div>
+            <div class="all">综合指数:{{ allMes.all }}</div>
+            <div class="health">健康指数:{{ allMes.health }}</div>
+            <div class="love">爱情指数:{{ allMes.love }}</div>
+            <div class="money">财富指数:{{ allMes.money }}</div>
+            <div class="number">幸运数字:{{ allMes.number }}</div>
+            <div class="work">工作指数:{{ allMes.work }}</div>
+            <div class="color">幸运颜色:{{ allMes.color }}</div>
+            <div class="QFriend">速配星座:{{ allMes.QFriend }}</div>
           </div>
           <div class="summary">
             <h5>今日概述</h5>
-            <p>{{allMes.summary}}</p>
+            <p>{{ allMes.summary }}</p>
           </div>
         </div>
-        <div class="tomorrow_detail" v-show="active=='tomorrow'">
+        <div class="tomorrow_detail" v-show="active == 'tomorrow'">
           <div class="point">
-            <div class="all">综合指数:{{allMes.all}}</div>
-            <div class="health">健康指数:{{allMes.health}}</div>
-            <div class="love">爱情指数:{{allMes.love}}</div>
-            <div class="money">财富指数:{{allMes.money}}</div>
-            <div class="number">幸运数字:{{allMes.number}}</div>
-            <div class="work">工作指数:{{allMes.work}}</div>
-            <div class="color">幸运颜色:{{allMes.color}}</div>
-            <div class="QFriend">速配星座:{{allMes.QFriend}}</div>
+            <div class="all">综合指数:{{ allMes.all }}</div>
+            <div class="health">健康指数:{{ allMes.health }}</div>
+            <div class="love">爱情指数:{{ allMes.love }}</div>
+            <div class="money">财富指数:{{ allMes.money }}</div>
+            <div class="number">幸运数字:{{ allMes.number }}</div>
+            <div class="work">工作指数:{{ allMes.work }}</div>
+            <div class="color">幸运颜色:{{ allMes.color }}</div>
+            <div class="QFriend">速配星座:{{ allMes.QFriend }}</div>
           </div>
           <div class="summary">
             <h5>明日概述</h5>
-            <p>{{allMes.summary}}</p>
+            <p>{{ allMes.summary }}</p>
           </div>
         </div>
-        <div class="week_detail" v-show="active=='week'">
-          <div class="job">{{allMes.job}}</div>
-          <div class="love">{{allMes.love}}</div>
-          <div class="money">{{allMes.money}}</div>
-          <div class="work">{{allMes.work}}</div>
+        <div class="week_detail" v-show="active == 'week'">
+          <div class="job">{{ allMes.job }}</div>
+          <div class="love">{{ allMes.love }}</div>
+          <div class="money">{{ allMes.money }}</div>
+          <div class="work">{{ allMes.work }}</div>
         </div>
-        <div class="month_detail" v-show="active=='month'">
-          <div class="all">{{allMes.all}}</div>
-          <div class="love">{{allMes.love}}</div>
-          <div class="health">{{allMes.health}}</div>
-          <div class="money">{{allMes.money}}</div>
-          <div class="work">{{allMes.work}}</div>
+        <div class="month_detail" v-show="active == 'month'">
+          <div class="all">{{ allMes.all }}</div>
+          <div class="love">{{ allMes.love }}</div>
+          <div class="health">{{ allMes.health }}</div>
+          <div class="money">{{ allMes.money }}</div>
+          <div class="work">{{ allMes.work }}</div>
         </div>
       </div>
     </div>
@@ -161,7 +180,7 @@ export default {
 };
 </script>
 
-<style scoped lang='less'>
+<style scoped lang="less">
 @center: {
   display: flex;
   justify-content: center;

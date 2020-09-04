@@ -21,7 +21,7 @@ export default {
   name: "RecommendList",
   setup() {
     const state = reactive({
-      recommendList: "",
+      recommendList: ""
     });
 
     const store = useStore();
@@ -31,19 +31,19 @@ export default {
       return store.state.RecommentList;
     });
 
-    let toDetail = (id) => {
+    let toDetail = id => {
       router.push({
         name: "ListDetail",
         params: {
-          id,
-        },
+          id
+        }
       });
     };
     return {
       ...toRefs(state),
-      toDetail,
+      toDetail
     };
-  },
+  }
 };
 </script>
 

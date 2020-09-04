@@ -14,13 +14,13 @@ export default {
   name: "MesChange",
   setup() {
     const state = reactive({
-      isShow: true,
+      isShow: true
     });
 
     return {
-      ...toRefs(state),
+      ...toRefs(state)
     };
-  },
+  }
 };
 </script>
 
