@@ -12,10 +12,7 @@
     <div class="content">
       <div class="userMes animated slideInRight" v-show="isShow">
         <span class="hidden iconfont icon-back" @click="changeStyle"></span>
-        <span
-          class="setting iconfont icon-shezhi3"
-          @click="isShowChangeBox = !isShowChangeBox"
-        ></span>
+        <span class="setting iconfont icon-shezhi3" @click="isShowChangeBox = !isShowChangeBox"></span>
         <div class="headerImg">
           <div class="img" @click="isChangeImg = !isChangeImg">
             <img :src="userMes.avatarUrl" alt />
@@ -38,18 +35,12 @@
         <div class="card">
           <div class="card1">
             <span>添加</span>
-            <i
-              class="iconfont icon-zhongxindongtai"
-              @click="addNews = !addNews"
-            ></i>
+            <i class="iconfont icon-zhongxindongtai" @click="addNews = !addNews"></i>
             <span>动态</span>
           </div>
           <div class="card2">
             <span>其它</span>
-            <i
-              class="iconfont icon-tubiaosvg-"
-              @click="$router.push('/wechatMonents')"
-            ></i>
+            <i class="iconfont icon-tubiaosvg-" @click="$router.push('/wechatMonents')"></i>
             <span>动态</span>
           </div>
         </div>

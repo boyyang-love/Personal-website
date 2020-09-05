@@ -25,12 +25,7 @@
     </div>
     <div class="other">
       <div class="blog">
-        <a
-          href="https://www.cnblogs.com/boyyangD/"
-          target="_blank"
-          rel="noopener noreferrer"
-          >我的博客</a
-        >
+        <a href="https://www.cnblogs.com/boyyangD/" target="_blank" rel="noopener noreferrer">我的博客</a>
       </div>
       <div class="github">
         <a
@@ -38,15 +33,14 @@
           target="_blank"
           rel="noopener noreferrer"
           class="iconfont icon-github"
-          >GitHub</a
-        >
+        >GitHub</a>
       </div>
       <div class="chatRoom" @click="routeJumb('chatRoom')">聊天室</div>
     </div>
     <div class="changeBg">
       <i class="iconfont icon-shezhi3" @click="changeBg"></i>
     </div>
-    <div class="alert" v-show="isAlert">
+    <div class="alert animated tada" v-show="isAlert">
       <div class="alert_title">更改背景图片</div>
       <div class="alert_icon">
         <i class="iconfont icon-tianjia"></i>
@@ -57,6 +51,28 @@
         <div class="btnSure" @click="submitFile">确定</div>
       </div>
     </div>
+    <div class="todolist" @click="isShowTodolist = !isShowTodolist">TODO</div>
+    <div class="todolistBox animated fadeInUp" v-show="isShowTodolist">
+      <div class="controller">
+        <i class="iconfont icon-xiangxiajiantou1" @click="isShowTodolist = false"></i>
+      </div>
+      <div class="lists">
+        <ul>
+          <li v-for="(item, i) in todolists" :key="i">
+            <div class="checkbox">
+              <input type="checkbox" v-model="item.checked" @click="doOver(i)" />
+            </div>
+            <div :class="['content',{hasDone:item.checked}]">{{item.text}}</div>
+            <div class="del">
+              <i class="iconfont icon-nb-" @click="del(i)"></i>
+            </div>
+          </li>
+        </ul>
+      </div>
+      <div class="addLists">
+        <input type="text" placeholder="New Todo" v-model="todotext" @keyup.enter="add" />
+      </div>
+    </div>
   </div>
 </template>
 
@@ -65,6 +81,7 @@ import Loading from "@/components/Loading";
 import { reactive, toRefs, ref } from "vue";
 import { useRouter } from "vue-router";
 import ChangBg from "@/utils/changeBg.js";
+import Todo from "@/utils/todolist.js";
 export default {
   name: "Home",
   components: {
@@ -75,11 +92,20 @@ export default {
       isShow: true,
       isAlert: false,
       isLoading: false,
+      isShowTodolist: false,
       file: ref(null),
-      bg: [require("../assets/img/犬夜叉桔梗4k动漫壁纸3840x2160_彼岸图网.jpg")]
+      todotext: "",
+      bg: [require("../assets/img/犬夜叉桔梗4k动漫壁纸3840x2160_彼岸图网.jpg")],
+      todolists: [
+        { checked: true, text: "吃饭" },
+        { checked: false, text: "睡觉" },
+        { checked: false, text: "打豆豆" },
+        { checked: false, text: "睡觉" }
+      ]
     });
     const router = useRouter();
     const CB = new ChangBg(state);
+    const todolist = new Todo(state);
 
     // 路由跳转
     let routeJumb = path => {
@@ -89,7 +115,7 @@ export default {
     const hiddenNav = () => {
       state.isShow = !state.isShow;
     };
-
+    // 更改背景
     const changeBg = () => {
       CB.userChangeBg();
     };
@@ -102,13 +128,32 @@ export default {
         CB.submitBg(state.file.files[0]);
       }
     };
+    // 添加待做事件
+    const add = () => {
+      if (state.todotext.trim() == "") {
+        alert("输入不能为空");
+      } else {
+        todolist.addTodo(state.todotext);
+      }
+    };
+    // 删除待做事件
+    const del = i => {
+      todolist.delTodo(i);
+    };
+    // 做完
+    const doOver = i => {
+      todolist.doOver(i);
+    };
 
     return {
       ...toRefs(state),
       routeJumb,
       hiddenNav,
       changeBg,
-      submitFile
+      submitFile,
+      add,
+      del,
+      doOver
     };
   }
 };
@@ -117,6 +162,11 @@ export default {
 <style scoped lang="less">
 .active {
   background-color: rgba(185, 31, 31, 0.6);
+}
+.hasDone {
+  background-color: rgba(233, 233, 233, 0.6);
+  text-decoration-line: line-through;
+  text-decoration-color: red;
 }
 * {
   margin: 0;
@@ -135,6 +185,7 @@ export default {
   justify-content: flex-start;
   align-items: center;
   flex-direction: column;
+  overflow: hidden;
   position: relative;
   @media screen and(max-width: 600px) {
     height: 660px;
@@ -147,6 +198,104 @@ export default {
     top: 0;
     left: 0;
     background-color: rgba(133, 125, 115, 0.6);
+  }
+  .todolist {
+    position: absolute;
+    left: 65px;
+    bottom: 15px;
+    font-weight: bold;
+    cursor: pointer;
+    color: chartreuse;
+    &:hover {
+      color: red;
+    }
+  }
+  .todolistBox {
+    width: 350px;
+    min-height: 138px;
+    background-color: rgba(0, 0, 0, 0.6);
+    position: absolute;
+    left: 15px;
+    bottom: 45px;
+    border-radius: 6px;
+    .controller {
+      width: 100%;
+      height: 25px;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      .iconfont {
+        color: whitesmoke;
+        font-size: 20px;
+        margin: 0 10px;
+        cursor: pointer;
+        &:hover {
+          color: pink;
+        }
+      }
+    }
+    .lists {
+      width: 100%;
+      ul {
+        width: 100%;
+        margin-bottom: 35px;
+        li {
+          padding: 0 10px;
+          display: flex;
+          align-items: center;
+          margin: 5px 0;
+          position: relative;
+          &:hover {
+            background: rgba(0, 0, 0, 0.8);
+          }
+          &:hover > .del > .iconfont {
+            display: block;
+          }
+          .checkbox {
+            width: 12px;
+            height: 12px;
+            margin: 0 5px;
+            cursor: pointer;
+            @center();
+          }
+          .content {
+            color: whitesmoke;
+            padding: 0 15px;
+          }
+          .del {
+            height: 100%;
+            position: absolute;
+            right: 10px;
+            color: whitesmoke;
+            @center();
+            .iconfont {
+              display: none;
+              font-size: 20px;
+              cursor: pointer;
+              &:hover {
+                color: red;
+              }
+            }
+          }
+        }
+      }
+    }
+    .addLists {
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      height: 35px;
+      @center();
+      input {
+        width: 85%;
+        height: 100%;
+        padding: 0 15px;
+        border: none;
+        outline: none;
+        background: none;
+        color: white;
+      }
+    }
   }
 
   .exit {

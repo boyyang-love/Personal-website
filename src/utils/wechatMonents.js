@@ -26,17 +26,14 @@ class WechatMonents {
   }
   // 图片下载
   async download(id) {
-    console.log(id);
     this.app
       .downloadFile({
         fileID: id
       })
-      .then(res => {
-        console.log(res);
+      .then((res) => {
+        console.log(res)
       })
-      .catch(err => {
-        console.log(err);
-      });
+
   }
 }
 

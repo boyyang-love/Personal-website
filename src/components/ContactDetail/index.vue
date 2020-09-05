@@ -17,13 +17,7 @@
           <div class="toLogin" @click="login" v-show="!isLogin">登录</div>
           <div class="outLogin" @click="outlogin" v-show="isLogin">退出</div>
         </div>
-        <textarea
-          name="comment"
-          id
-          cols="20"
-          rows="10"
-          v-model="commentText"
-        ></textarea>
+        <textarea name="comment" id cols="20" rows="10" v-model="commentText"></textarea>
       </div>
       <div class="submit" @click="submit" v-show="isLogin">提交</div>
       <div class="comment" v-for="(item, i) in commentDetail" :key="i">
@@ -36,20 +30,12 @@
           <div class="commentText">{{ item.commentText }}</div>
           <div class="reback">
             <span @click="rebackComment(item._id)">回复</span>
-            <span v-show="item.uid == uid" @click="delComment(item._id)"
-              >删除</span
-            >
+            <span v-show="item.uid == uid" @click="delComment(item._id)">删除</span>
           </div>
           <!-- 其它评论 -->
-          <div
-            class="otherComment"
-            v-for="(comment, i) in item.otherPersonComments"
-            :key="i"
-          >
+          <div class="otherComment" v-for="(comment, i) in item.otherPersonComments" :key="i">
             <div class="personName">
-              <div class="commentheader">
-                {{ comment.nickname.slice(0, 1) }}
-              </div>
+              <div class="commentheader">{{ comment.nickname.slice(0, 1) }}</div>
               <div class="commentNickname">{{ comment.nickname }}</div>
               <div class="commentTime">{{ comment.commentTime }}</div>
             </div>
@@ -105,25 +91,12 @@
       <div class="input-box">
         <div class="nickname">
           邮箱:
-          <input
-            type="text"
-            name="email"
-            v-model="email"
-            placeholder="注册时邮箱"
-          />
-          <i
-            class="iconfont icon-tuichu2"
-            :style="{ color: Reg_email.test(email) ? '' : 'red' }"
-          ></i>
+          <input type="text" name="email" v-model="email" placeholder="注册时邮箱" />
+          <i class="iconfont icon-tuichu2" :style="{ color: Reg_email.test(email) ? '' : 'red' }"></i>
         </div>
         <div class="email">
           密码:
-          <input
-            type="password"
-            name="password"
-            v-model="password"
-            placeholder="邮箱密码"
-          />
+          <input type="password" name="password" v-model="password" placeholder="邮箱密码" />
           <i
             class="iconfont icon-tuichu2"
             :style="{ color: Reg_password.test(password) ? '' : 'red' }"
@@ -221,7 +194,6 @@ export default {
     };
     // 删除评论事件
     const delComment = _id => {
-      // console.log(_id);
       let r = confirm("是否删除该条评论");
       if (r == true) {
         db.delComment(_id);
@@ -231,7 +203,6 @@ export default {
     };
     // 回复评论事件
     const rebackComment = async _id => {
-      // console.log(_id);
       db.rebackComment(_id);
     };
     // 退出回复界面
@@ -584,7 +555,7 @@ export default {
   @center();
   background: rgba(0, 0, 0, 0.6);
   .alertBox {
-    width: 45%;
+    width: 30%;
     height: 200px;
     background-color: #88ada6;
     position: fixed;

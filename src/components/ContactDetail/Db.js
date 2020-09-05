@@ -83,7 +83,6 @@ class Db {
   }
   // 回复评论
   async rebackComment(_id) {
-    console.log(_id);
     this.auth.getLoginState().then(loginstate => {
       if (loginstate) {
         this.state.isReback = true;

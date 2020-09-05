@@ -15,12 +15,12 @@
             <img :src="item.img" alt />
           </div>
         </div>
-        <div class="download">
+        <!-- <div class="download">
           <i
             class="iconfont icon-xiazai11"
             @click="download(item.DownloadId)"
           ></i>
-        </div>
+        </div> -->
       </div>
     </div>
   </div>
@@ -33,7 +33,7 @@ export default {
   name: "WechatMonents",
   setup() {
     const state = reactive({
-      news: ""
+      news: "",
     });
     const wm = new WechatMonents(state);
 
@@ -41,15 +41,15 @@ export default {
       wm.getAllNews();
     });
 
-    const download = id => {
-      wm.download(id);
-    };
+    // const download = id => {
+    //   wm.download(id);
+    // };
 
     return {
       ...toRefs(state),
-      download
+      // download
     };
-  }
+  },
 };
 </script>
 
