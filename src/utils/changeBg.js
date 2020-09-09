@@ -1,5 +1,7 @@
 import cloudbase from "@cloudbase/js-sdk";
-import { useRouter } from "vue-router";
+import {
+  useRouter
+} from "vue-router";
 class ChangBg {
   constructor(state) {
     this.state = state;
@@ -26,16 +28,16 @@ class ChangBg {
           .then(res => {
             if (!res.data[0].background) {
               const app = document.getElementById("app");
-              app.style.cssText = `background-image: url(${this.state.bg[0]}); background-size:cover`;
+              app.style.cssText = `background-image: url(${this.state.bg[0]}); background-size:cover;background-position:center;`;
             } else {
               this.state.bg[0] = res.data[0].background;
               const app = document.getElementById("app");
-              app.style.cssText = `background-image: url(${this.state.bg[0]}); background-size:cover`;
+              app.style.cssText = `background-image: url(${this.state.bg[0]}); background-size:cover;background-position:center;`;
             }
           });
       } else {
         const app = document.getElementById("app");
-        app.style.cssText = `background-image: url(${this.state.bg[0]}); background-size:cover`;
+        app.style.cssText = `background-image: url(${this.state.bg[0]}); background-size:cover;background-position:center;`;
       }
     });
   }
@@ -65,13 +67,11 @@ class ChangBg {
       .then(res => {
         this.app
           .getTempFileURL({
-            fileList: [
-              {
-                fileID: res.fileID,
-                tempFileURL: "",
-                maxAge: 120 * 60 * 10000
-              }
-            ]
+            fileList: [{
+              fileID: res.fileID,
+              tempFileURL: "",
+              maxAge: 120 * 60 * 10000
+            }]
           })
           .then(res => {
             db.collection("register")

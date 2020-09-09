@@ -78,9 +78,9 @@ const PLAY = video => {
   padding: 0;
 }
 .mv {
-  background-color: rgba(255, 255, 255, 0.1);
+  background-color: rgba(204, 40, 40, 0.1);
   width: 100%;
-  height: 100%;
+  height: 100vh;
   .head {
     width: 100%;
     height: 55px;
@@ -97,6 +97,7 @@ const PLAY = video => {
     }
   }
   .mvPlayer {
+    margin-top: 25px;
     width: 100%;
     height: 500px;
     display: flex;
@@ -105,6 +106,9 @@ const PLAY = video => {
     video {
       width: 80%;
       height: 100%;
+      @media screen and(max-width: 600px) {
+        width: 100%;
+      }
     }
   }
   .player {
@@ -120,57 +124,6 @@ const PLAY = video => {
     }
     i:hover {
       color: chartreuse;
-    }
-  }
-}
-
-@media screen and(max-width: 600px) {
-  .mv {
-    position: absolute;
-    z-index: 6;
-    background-color: #fff;
-    width: 99%;
-    height: 675px;
-    .head {
-      width: 100%;
-      height: 55px;
-      display: flex;
-      align-items: center;
-      background-color: #44cef6;
-      .iconfont {
-        margin-left: 25px;
-        font-size: 26px;
-        cursor: pointer;
-      }
-      .iconfont:hover {
-        color: #db5a6b;
-      }
-    }
-    .mvPlayer {
-      width: 100%;
-      height: 500px;
-      display: flex;
-      justify-content: center;
-      align-self: center;
-      video {
-        width: 80%;
-        height: 100%;
-      }
-    }
-    .player {
-      width: 100%;
-      height: 55px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      i {
-        font-size: 30px;
-        margin: 10px;
-        cursor: pointer;
-      }
-      i:hover {
-        color: chartreuse;
-      }
     }
   }
 }
