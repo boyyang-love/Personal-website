@@ -2,11 +2,8 @@
   <div class="recommend">
     <div class="content">
       <div class="music" v-for="(item, i) in recommendList" :key="i">
-        <img :src="item.picUrl" alt />
-        <div
-          class="play iconfont icon-bofang1"
-          @click="toDetail(item.id)"
-        ></div>
+        <img src="../../assets/img/彩色星空.png" v-lazy="item.picUrl" alt />
+        <div class="play iconfont icon-bofang1" @click="toDetail(item.id)"></div>
         <div class="name">{{ item.name }}</div>
       </div>
     </div>
@@ -39,6 +36,7 @@ export default {
         }
       });
     };
+
     return {
       ...toRefs(state),
       toDetail

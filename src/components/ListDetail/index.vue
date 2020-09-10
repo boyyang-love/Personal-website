@@ -12,7 +12,7 @@
       <div class="songs">
         <ul>
           <li v-for="(item, i) in songs.tracks" :key="i">
-            <img :src="item.al.picUrl" alt />
+            <img src="../../assets/img/蓝紫色星空.png" v-lazy="item.al.picUrl" alt />
             <i class="iconfont icon-icon-" @click="play(item.id, i)"></i>
             <div class="name">{{ item.name }}</div>
             <div class="singer">{{ item.ar[0].name }}</div>

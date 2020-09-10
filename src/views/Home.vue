@@ -95,7 +95,9 @@ export default {
       isShowTodolist: false,
       file: ref(null),
       todotext: "",
-      bg: [require("../assets/img/犬夜叉桔梗4k动漫壁纸3840x2160_彼岸图网.jpg")],
+      bg: [
+        require("../assets/img/鬼灭之刃蝴蝶忍4k高清电脑壁纸3840x2160_彼岸图网.jpg")
+      ],
       todolists: [
         { checked: true, text: "吃饭" },
         { checked: false, text: "睡觉" },

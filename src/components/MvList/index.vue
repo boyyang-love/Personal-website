@@ -2,7 +2,7 @@
   <div class="Mv">
     <div class="content">
       <div class="mv" v-for="(item, i) in mvList" :key="i">
-        <img :src="item.cover" alt />
+        <img src="../../assets/img/湖边星空.png" v-lazy="item.cover" alt />
         <h5>{{ item.name }}</h5>
         <div class="iconfont icon-mv1" @click="mvPlay(item.id)"></div>
       </div>

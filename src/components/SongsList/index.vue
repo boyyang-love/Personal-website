@@ -2,7 +2,7 @@
   <div class="Song">
     <div class="content">
       <div class="songs" v-for="(item, i) in songsList" :key="i">
-        <img :src="item.picUrl" alt />
+        <img src="../../assets/img/蓝紫色星空.png" v-lazy="item.picUrl" alt />
         <div class="iconfont icon-bofang1" @click="play(item.id)"></div>
         <div class="mes">
           <h5>{{ item.name }}</h5>

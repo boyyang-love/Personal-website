@@ -12,7 +12,7 @@
         <div class="text_img">
           <div class="text">{{ item.text }}</div>
           <div class="img">
-            <img :src="item.img" alt />
+            <img src="../assets/img/鬼灭之刃蝴蝶忍4k高清电脑壁纸3840x2160_彼岸图网.jpg" v-lazy="item.img" alt />
           </div>
         </div>
         <!-- <div class="download">
@@ -20,7 +20,7 @@
             class="iconfont icon-xiazai11"
             @click="download(item.DownloadId)"
           ></i>
-        </div> -->
+        </div>-->
       </div>
     </div>
   </div>
@@ -33,7 +33,7 @@ export default {
   name: "WechatMonents",
   setup() {
     const state = reactive({
-      news: "",
+      news: ""
     });
     const wm = new WechatMonents(state);
 
@@ -46,10 +46,10 @@ export default {
     // };
 
     return {
-      ...toRefs(state),
+      ...toRefs(state)
       // download
     };
-  },
+  }
 };
 </script>
 

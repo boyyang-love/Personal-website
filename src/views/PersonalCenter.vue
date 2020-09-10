@@ -70,7 +70,7 @@
           <div class="del iconfont icon-nb-" @click="del(item._id)"></div>
           <div class="head">
             <div class="head_img">
-              <img :src="userMes.avatarUrl" alt />
+              <img src="../assets/img/youuu.jpg" v-lazy="userMes.avatarUrl" alt />
             </div>
             <div class="head_name">{{ item.nickname }}</div>
             <div class="head_time">{{ item.time }}</div>
@@ -80,7 +80,7 @@
           </div>
           <div class="shows_img">
             <div class="img" v-show="item.img != ''">
-              <img :src="item.img" alt />
+              <img src="../assets/img/mafia动漫5k壁纸_彼岸图网.jpg" v-lazy="item.img" alt />
             </div>
           </div>
           <div class="comment"></div>
