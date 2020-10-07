@@ -27,7 +27,6 @@ export default {
   height: 100%;
   min-height: 100vh;
   overflow: hidden;
-  // background-image: url("./assets/img/犬夜叉桔梗4k动漫壁纸3840x2160_彼岸图网.jpg");
   background-size: cover;
   display: flex;
   align-items: center;

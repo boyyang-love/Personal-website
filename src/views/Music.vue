@@ -2,7 +2,9 @@
   <div class="music">
     <div class="back iconfont icon-cuowu11" @click="$router.push('/')"></div>
     <div class="content animated slideInDown">
-      <MusicHead />
+      <keep-alive>
+        <MusicHead />
+      </keep-alive>
     </div>
   </div>
 </template>

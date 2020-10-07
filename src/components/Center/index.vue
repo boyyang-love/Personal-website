@@ -27,26 +27,16 @@
         <div class="nickname">
           <span>昵称</span>
           <input type="text" v-model="nickname" placeholder="2~8位任意字符" />
-          <span
-            class="iconfont icon-zhengque3"
-            v-show="nickname_Reg.test(nickname)"
-          ></span>
+          <span class="iconfont icon-zhengque3" v-show="nickname_Reg.test(nickname)"></span>
         </div>
         <div class="email">
           <span>邮箱</span>
           <input type="text" v-model="email" placeholder="xxx@xxx.com" />
-          <span
-            class="iconfont icon-zhengque3"
-            v-show="email_Reg.test(email)"
-          ></span>
+          <span class="iconfont icon-zhengque3" v-show="email_Reg.test(email)"></span>
         </div>
         <div class="password">
           <span>密码</span>
-          <input
-            type="password"
-            v-model="password"
-            placeholder="6~18位任意字符"
-          />
+          <input type="password" v-model="password" placeholder="6~18位任意字符" />
           <span
             class="iconfont icon-zhengque3"
             v-show="password_Reg.test(password) && password === repassword"
@@ -54,11 +44,7 @@
         </div>
         <div class="repassword">
           <span>确认</span>
-          <input
-            type="password"
-            v-model="repassword"
-            placeholder="确认密码是否一致"
-          />
+          <input type="password" v-model="repassword" placeholder="确认密码是否一致" />
           <span
             class="iconfont icon-zhengque3"
             v-show="password_Reg.test(password) && password === repassword"
@@ -91,10 +77,10 @@ export default {
   setup() {
     const state = reactive({
       isLogined: true,
-      nickname: "boyyang",
-      email: "1761617270@qq.com",
-      password: "yzhd45683968yzhd",
-      repassword: "yzhd45683968yzhd",
+      nickname: "",
+      email: "",
+      password: "",
+      repassword: "",
       isLoading: false,
       loadingText: "疯狂加载中",
       id: ""

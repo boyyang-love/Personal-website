@@ -28,16 +28,16 @@ class ChangBg {
           .then(res => {
             if (!res.data[0].background) {
               const app = document.getElementById("app");
-              app.style.cssText = `background-image: url(${this.state.bg[0]}); background-size:cover;background-position:center;`;
+              app.style.cssText = `background-image: url(${this.state.bg[0]}); background-size:cover;background-position:center; z-index:1`;
             } else {
               this.state.bg[0] = res.data[0].background;
               const app = document.getElementById("app");
-              app.style.cssText = `background-image: url(${this.state.bg[0]}); background-size:cover;background-position:center;`;
+              app.style.cssText = `background-image: url(${this.state.bg[0]}); background-size:cover;background-position:center; z-index:1;`;
             }
           });
       } else {
         const app = document.getElementById("app");
-        app.style.cssText = `background-image: url(${this.state.bg[0]}); background-size:cover;background-position:center;`;
+        app.style.cssText = `background-image: url(${this.state.bg[0]}); background-size:cover;background-position:center;z-index:1`;
       }
     });
   }
